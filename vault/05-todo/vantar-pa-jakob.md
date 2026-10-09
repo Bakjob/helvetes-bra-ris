@@ -7,7 +7,12 @@ punkten är klar, eller flytta den till [[../02-beslut/changelog]] med datum.
 
 ## Aktivt öppna
 
-*(inget just nu — se "Löst" nedan för det senaste)*
+- **Peka om git-remoten till nya GitHub-platsen** (2026-10-09). Repot flyttades
+  från `HexagogoGames/helvetes-bra-ris` till `Bakjob/helvetes-bra-ris`. GitHub
+  vidarebefordrar från den gamla adressen än så länge, men Claude fick inte
+  ändra remoten själv. Kör
+  `git -C ~/dotfiles remote set-url origin git@github.com:Bakjob/helvetes-bra-ris.git`,
+  och uppdatera sedan Git-avsnittet i `CLAUDE.md`.
 
 ## Löst (kvar som referens en kort tid)
 
