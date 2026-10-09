@@ -10,12 +10,15 @@ punkten är klar, eller flytta den till [[../02-beslut/changelog]] med datum.
 - **Titta på eww-menyerna** (2026-10-09). Färgerna kommer nu från det dynamiska
   temat, wifi-listan och volymmenyn (val av ljudenhet) är omgjorda, och det
   finns nya genvägar längst ner. Claude har inte sett resultatet (inga skärmdumpar av menyerna).
+- **Starta Bluetooth om du vill använda det** (2026-10-09):
+  `sudo systemctl enable --now bluetooth`. Tjänsten är avstängd, så
+  Bluetooth-brickan i inställningspanelen visar "Bluetooth (av)" och gör inget.
+- **Titta på inställningspanelen:** systemmenyn → Inställningar. Inte sedd av
+  Claude.
 - **Se på regn v2** (2026-10-09). Super+Shift+W av och på igen, så laddas den
   nya shadern.
 - **Energimätning av regnet:** säg till när regnet är av, så mäter Claude
   förbrukningen utan regn (~11,1 W med regn).
-- **Wifi-knappen i waybar** dyker upp vid nästa omladdning av waybar (nästa
-  heltimme, eller direkt om Jakob säger ja).
 - **Titta på wlogout** (Super+Shift+E): text under ikonerna och guldkant vid
   hover. Inte sett av Claude.
 - **Kolla efter nästa heltimme** att waybar och swaync fortfarande ser rätt ut,

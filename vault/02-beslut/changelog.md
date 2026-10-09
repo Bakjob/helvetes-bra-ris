@@ -2,6 +2,14 @@
 
 Nyast överst.
 
+## 2026-10-09 — Egen inställningspanel i eww
+
+Jakob ville ha "massor med inställningar". Ny `settings-menu` med ljusstyrka,
+nattljus, håll vaken, mikrofon, Stör ej, Bluetooth, regn, energiprofil och byte
+av bakgrund, plus en genväg till GNOME-inställningarna för resten. Se
+[[../01-appar/eww]]. waybar laddades om (SIGUSR2) med Jakobs ok, så wifi-knappen
+syns.
+
 ## 2026-10-09 — Regn v2, wifi-knapp i waybar, Inställningar fungerar
 
 - Regn-shadern omgjord (mjuk dis, tydliga linsdroppar, rinnande droppar), se

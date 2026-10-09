@@ -73,3 +73,20 @@ Balanserat och Prestanda, och `battery.sh` översätter upowers tillstånd
 and Unity"). Alla genvägar kör den därför med `XDG_CURRENT_DESKTOP=GNOME`.
 Panelerna för wifi, Bluetooth, ljud, energi, skrivare och användare fungerar.
 Skärm-, tangentbords- och muspanelerna påverkar inte Hyprland.
+
+## Inställningspanelen `settings-menu` (2026-10-09)
+
+Öppnas från "Inställningar" i systemmenyn. Läget kommer från
+`scripts/settings-status.sh` (defpoll `settings`, 3 s, alla kommandon har
+timeout) och klicken går till `scripts/settings-toggle.sh <åtgärd>`, som
+uppdaterar `settings` direkt efteråt.
+- Ljusstyrka: reglage, minst 5 % så att skärmen aldrig blir helt svart.
+- Brickor: Nattljus (hyprsunset-IPC, 4500 K ↔ neutral; schemat tar över vid
+  nästa profilbyte), Håll vaken (stoppar/startar hypridle), Mikrofon av, Stör ej,
+  Bluetooth och Regn.
+- Energiprofil: Spara / Balans / Prestanda.
+- Byt bakgrund nu (startar `wallpaper-cycle.service`), och Fler inställningar
+  (gnome-control-center).
+
+Bluetooth kräver att `bluetooth.service` kör. Den var avstängd 2026-10-09, och
+`bluetoothctl` hänger då i stället för att ge fel, därav alla timeouts.

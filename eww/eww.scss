@@ -276,3 +276,35 @@ window, .background {
     font-size: 11px;
     padding: 0px 12px 6px 12px;
 }
+
+/* Installningspanelen: ikon framfor ljusstyrkereglaget och en
+   segmenterad knapprad for energiprofil. */
+.slider-icon {
+    color: $fg;
+    font-size: 16px;
+    padding: 0px 10px 0px 4px;
+}
+
+.segmented {
+    margin: 0px 0px 8px 0px;
+}
+
+.seg {
+    padding: 8px 0px;
+    margin: 0px 3px;
+    border-radius: 10px;
+    background-color: rgba($fg, 0.06);
+    border: 1px solid rgba($border, 0.6);
+    color: $fg-dim;
+    transition: background-color 150ms ease-out;
+}
+
+.seg:hover {
+    background-color: rgba($fg, 0.10);
+}
+
+.seg.active {
+    background-color: $accent;
+    border-color: $accent;
+    color: $bg;
+}

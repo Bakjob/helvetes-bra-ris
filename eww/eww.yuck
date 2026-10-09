@@ -34,6 +34,13 @@
   "~/.config/eww/scripts/system-stats.sh")
 (defvar dnd_active false)
 
+;; Inställningspanelen (settings-menu) - läge för alla reglage, se
+;; scripts/settings-status.sh. Uppdateras direkt efter varje klick av
+;; scripts/settings-toggle.sh.
+(defpoll settings :interval "3s"
+  :initial "{\"brightness\":50,\"nightlight\":false,\"keep_awake\":false,\"mic_muted\":false,\"dnd\":false,\"rain\":false,\"profile\":\"balanced\",\"bt_service\":false,\"bt_on\":false}"
+  "~/.config/eww/scripts/settings-status.sh")
+
 ;; ===================== Batteri-meny =====================
 
 (defwidget battery-content []
@@ -225,7 +232,7 @@
             :onclick "eww close system-menu; pavucontrol &"
       (label :class "menu-item-label" :halign "start" :text "Ljudinställningar"))
     (button :class "menu-item"
-            :onclick "eww close system-menu; XDG_CURRENT_DESKTOP=GNOME gnome-control-center &"
+            :onclick "eww close system-menu; eww open settings-menu"
       (label :class "menu-item-label" :halign "start" :text "Inställningar"))
     (button :class "menu-item"
             :onclick "eww close system-menu; hyprlock &"
@@ -264,3 +271,75 @@
       (eventbox :onclick "true"
         (box :class "align-wifi-connect"
           (wifi-connect-content :ssid ssid))))))
+
+;; ===================== Inställningspanel =====================
+
+;; Fyrkantig av/på-bricka (samma stil som i systemmenyn)
+(defwidget stile [active icon text onclick]
+  (button :class "tile ${active ? "active" : ""}" :onclick onclick
+    (box :orientation "vertical" :space-evenly false :halign "center"
+      (label :class "tile-icon" :text icon)
+      (label :class "tile-label" :text text))))
+
+(defwidget settings-content []
+  (box :class "menu-card" :orientation "vertical" :space-evenly false
+    (label :class "menu-header" :halign "start" :text "Inställningar")
+    (box :class "menu-sep")
+    ;; Ljusstyrka - min 5 % så att skärmen aldrig blir helt svart
+    (box :orientation "horizontal" :space-evenly false :class "menu-item"
+      (label :class "slider-icon" :text "󰃠")
+      (scale :class "volume-scale" :hexpand true
+             :min 5 :max 101 :value {settings.brightness}
+             :onchange "~/.config/eww/scripts/settings-toggle.sh brightness {}")
+      (label :class "menu-item-time" :text "${settings.brightness}%"))
+    (box :class "menu-sep")
+    (box :orientation "horizontal" :space-evenly true :class "tile-grid"
+      (stile :active {settings.nightlight} :icon "󰖔" :text "Nattljus"
+             :onclick "~/.config/eww/scripts/settings-toggle.sh nightlight")
+      (stile :active {settings.keep_awake} :icon "󰅶" :text "Håll vaken"
+             :onclick "~/.config/eww/scripts/settings-toggle.sh keep-awake")
+      (stile :active {settings.mic_muted} :icon "${settings.mic_muted ? "󰍭" : "󰍬"}" :text "Mikrofon av"
+             :onclick "~/.config/eww/scripts/settings-toggle.sh mic"))
+    (box :orientation "horizontal" :space-evenly true :class "tile-grid"
+      (stile :active {settings.dnd} :icon "󰂛" :text "Stör ej"
+             :onclick "~/.config/eww/scripts/settings-toggle.sh dnd")
+      (stile :active {settings.bt_on} :icon "${settings.bt_on ? "󰂯" : "󰂲"}"
+             :text "${settings.bt_service ? "Bluetooth" : "Bluetooth (av)"}"
+             :onclick "~/.config/eww/scripts/settings-toggle.sh bluetooth")
+      (stile :active {settings.rain} :icon "󰖗" :text "Regn"
+             :onclick "~/.config/eww/scripts/settings-toggle.sh rain"))
+    (box :class "menu-sep")
+    (label :class "menu-subheader" :halign "start" :text "Energiprofil")
+    (box :orientation "horizontal" :space-evenly true :class "segmented"
+      (button :class "seg ${settings.profile == "power-saver" ? "active" : ""}"
+              :onclick "~/.config/eww/scripts/settings-toggle.sh profile power-saver"
+        (label :text "Spara"))
+      (button :class "seg ${settings.profile == "balanced" ? "active" : ""}"
+              :onclick "~/.config/eww/scripts/settings-toggle.sh profile balanced"
+        (label :text "Balans"))
+      (button :class "seg ${settings.profile == "performance" ? "active" : ""}"
+              :onclick "~/.config/eww/scripts/settings-toggle.sh profile performance"
+        (label :text "Prestanda")))
+    (box :class "menu-sep")
+    (button :class "menu-item"
+            :onclick "~/.config/eww/scripts/settings-toggle.sh wallpaper"
+      (box :orientation "horizontal" :space-evenly false
+        (label :class "menu-item-label" :halign "start" :hexpand true :text "Byt bakgrund nu")
+        (label :class "menu-item-icon" :text "󰸉")))
+    (button :class "menu-item"
+            :onclick "eww close settings-menu; XDG_CURRENT_DESKTOP=GNOME gnome-control-center &"
+      (box :orientation "horizontal" :space-evenly false
+        (label :class "menu-item-label" :halign "start" :hexpand true :text "Fler inställningar")
+        (label :class "menu-item-icon" :text "󰒓")))))
+
+(defwindow settings-menu
+  :monitor 0
+  :namespace "eww-dropdown"
+  :geometry (geometry :x "0" :y "0" :width "100%" :height "100%" :anchor "top left")
+  :stacking "overlay"
+  :focusable false
+  (eventbox :onclick "eww close settings-menu"
+    (box :class "backdrop" :halign "end" :valign "start"
+      (eventbox :onclick "true"
+        (box :class "align-system"
+          (settings-content))))))
