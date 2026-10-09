@@ -9,7 +9,7 @@ i eww-wifi-menyn och "· VPN" i systemmenyns nät-rad/waybar-tooltipen, se
 [[vault/01-appar/eww]].
 
 Första versionen hade å/ä/ö i en scss-kommentar, vilket slog ut all eww-styling.
-Fixat samma dag, se [[vault/03-felsokning/eww-scss-icke-ascii]].
+Fixat samma dag, se [[vault/03-felsokning/eww-locale-och-scss-quirks]].
 
 ## 2026-09-19 — Alla gröna toner omräknade till "moss green"-familjen
 

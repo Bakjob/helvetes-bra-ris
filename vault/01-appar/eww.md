@@ -19,4 +19,4 @@ eduVPN-klienten). En VPN som inte går via NetworkManager (t.ex. `wg-quick`
 direkt) syns inte.
 
 **`eww.scss` måste vara ren ASCII**, även i kommentarer. Annars faller hela
-stilmallen bort tyst, se [[vault/03-felsokning/eww-scss-icke-ascii]].
+stilmallen bort tyst, se [[vault/03-felsokning/eww-locale-och-scss-quirks]].

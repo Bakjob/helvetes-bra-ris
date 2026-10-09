@@ -37,3 +37,9 @@ läser sin CSS direkt (inget SCSS-steg), så svenska tecken där är helt ofarli
 själv på ren ASCII i kommentarer för att undvika detta, oavsett om filen i
 övrigt (`eww.yuck`, labels i UI:t) har svensk text — de går via en annan
 körväg och påverkas inte.
+
+**Hände igen 2026-10-09:** en kommentar med å/ä/ö till VPN-raden i wifi-menyn.
+Den här gången föll **hela** stilmallen bort (menyerna visades i GTK:s
+standardutseende) och inget syntes i eww-loggen. Ta bort tecknen och spara, så
+laddar eww om stilen direkt utan omstart. Kolla alltid efter en ändring:
+`grep -nP '[^\x00-\x7F]' eww/eww.scss` (ska inte ge någon träff).
