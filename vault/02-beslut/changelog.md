@@ -2,6 +2,11 @@
 
 Nyast överst.
 
+## 2026-10-09 — Rofi: ett klick startar appen
+
+Ikonerna i app-menyn (Super + Space) gick inte att klicka på. Rofi kräver
+dubbelklick som standard, nu räcker ett klick. Se [[vault/01-appar/rofi]].
+
 ## 2026-10-09 — VPN-status i wifi-menyn
 
 Jakob körde VPN (eduVPN) men inget i riggen visade det. Lade till en VPN-rad

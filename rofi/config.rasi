@@ -16,6 +16,12 @@ configuration {
     sort: true;
 
     sorting-method: "fzf";
+
+    /* Musklick: rofis standard är klick = markera, dubbelklick = starta.
+       Här startar ett vanligt klick appen direkt, och hover markerar. */
+    hover-select: true;
+    me-select-entry: "";
+    me-accept-entry: "MousePrimary";
 }
 
 * {
