@@ -84,7 +84,9 @@ window, .background {
     color: #d4a24a;
 }
 
-/* VPN-raden i wifi-menyn - ikonen först, guld när VPN är på */
+/* VPN-raden i wifi-menyn - ikonen forst, guld nar VPN ar pa.
+   OBS: bara ASCII i den har filen, a/a/o i en kommentar fick hela
+   stilmallen att falla bort 2026-10-09. */
 .vpn-row .menu-item-icon {
     padding: 0px 8px 0px 0px;
 }

@@ -17,3 +17,6 @@ dyker upp som en NM-anslutning av typen `wireguard` med namnet "eduVPN".
 visar "Ansluten · VPN". Bara status — ingen av/på-knapp (anslutning sköts i
 eduVPN-klienten). En VPN som inte går via NetworkManager (t.ex. `wg-quick`
 direkt) syns inte.
+
+**`eww.scss` måste vara ren ASCII**, även i kommentarer. Annars faller hela
+stilmallen bort tyst, se [[vault/03-felsokning/eww-scss-icke-ascii]].

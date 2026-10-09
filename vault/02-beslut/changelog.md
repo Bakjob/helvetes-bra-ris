@@ -8,6 +8,9 @@ Jakob körde VPN (eduVPN) men inget i riggen visade det. Lade till en VPN-rad
 i eww-wifi-menyn och "· VPN" i systemmenyns nät-rad/waybar-tooltipen, se
 [[vault/01-appar/eww]].
 
+Första versionen hade å/ä/ö i en scss-kommentar, vilket slog ut all eww-styling.
+Fixat samma dag, se [[vault/03-felsokning/eww-scss-icke-ascii]].
+
 ## 2026-09-19 — Alla gröna toner omräknade till "moss green"-familjen
 
 Jakob: "om något är i färgen grön kan du ändra det till moss green. men
