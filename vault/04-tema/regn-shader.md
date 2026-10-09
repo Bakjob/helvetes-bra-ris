@@ -85,3 +85,26 @@ Jakob tyckte att den första versionen hade kantiga moln och för otydliga dropp
 användning). Det mesta av merkostnaden kommer från att damage tracking är av, så
 hela skärmen och blurren komponeras om 60 gånger per sekund. Shaderns matte är en
 liten del.
+
+## Stillastående som standard (2026-10-09)
+
+Mätt med upower och `gpu.sh` vid normal användning:
+
+| | Effekt | GPU |
+|---|---|---|
+| Regn av | ~9,25 W | ~9 % |
+| Animerat regn | ~11,1 W | ~29 % |
+
+Kostnaden kommer från animationen (damage tracking av, hela skärmen och blurren
+ritas om 60 ggr/s), inte från shaderns matte. En enklare shader hade inte hjälpt
+nämnvärt. Därför:
+- **Super+Shift+W** (och Regn-brickan i inställningspanelen): *stillastående*
+  regn. `toggle-rain.sh` genererar `~/.cache/hypr-rain-static.glsl` från
+  `rain.glsl` med `time` som konstant. Utan `uniform float time` kan damage
+  tracking vara kvar, så det är i princip gratis.
+- **Super+Alt+W**: animerat regn som förut.
+- Markörfilen `~/.cache/rain-shader-on` innehåller läget, så `restore` slår på
+  rätt variant efter den timvisa reloaden.
+
+Osäkert: om en stillastående screen shader som läser grannpixlar (linsbrytningen)
+ger skarvar runt delar av skärmen som ritas om. Håll utkik efter det.

@@ -2,6 +2,13 @@
 
 Nyast överst.
 
+## 2026-10-09 — Responsivare inställningspanel, stillastående regn som standard
+
+- Inställningspanelen byter läge direkt vid klick, se [[../01-appar/eww]].
+- Regnet: mätt ~1,9 W extra när det är animerat. Super+Shift+W ger nu
+  stillastående regn (i princip gratis) och Super+Alt+W animerat, se
+  [[../04-tema/regn-shader]].
+
 ## 2026-10-09 — Egen inställningspanel i eww
 
 Jakob ville ha "massor med inställningar". Ny `settings-menu` med ljusstyrka,

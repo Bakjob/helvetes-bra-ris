@@ -34,9 +34,12 @@ hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd("~/.config/hypr/scripts/screensho
 hl.bind(mod .. " + SHIFT + F", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh full"))
 
 -- EXPERIMENTELL regn-shader (av som standard, ingen autostart) - slå på/av
--- live, rör ingen config. Gillar du inte den: ta bara bort den här raden.
+-- live, rör ingen config. Stillastående regn (i princip gratis). Gillar du inte den: ta bara bort den här raden.
 -- Se vault/04-tema/regn-shader.md.
 hl.bind(mod .. " + SHIFT + W", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle-rain.sh"))
+-- Animerat (rinnande) regn - kostar ~1,9 W eftersom hela skärmen ritas om
+-- 60 ggr/s. Super+Shift+W ovan ger stillastående regn, som är i princip gratis.
+hl.bind(mod .. " + ALT + W", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle-rain.sh animated"))
 
 -- Flytta/ändra storlek på fönster med mus + mod
 hl.bind(mod .. " + mouse:272", hl.dsp.window.drag())

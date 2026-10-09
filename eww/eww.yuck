@@ -34,12 +34,20 @@
   "~/.config/eww/scripts/system-stats.sh")
 (defvar dnd_active false)
 
-;; Inställningspanelen (settings-menu) - läge för alla reglage, se
-;; scripts/settings-status.sh. Uppdateras direkt efter varje klick av
-;; scripts/settings-toggle.sh.
-(defpoll settings :interval "3s"
-  :initial "{\"brightness\":50,\"nightlight\":false,\"keep_awake\":false,\"mic_muted\":false,\"dnd\":false,\"rain\":false,\"profile\":\"balanced\",\"bt_service\":false,\"bt_on\":false}"
-  "~/.config/eww/scripts/settings-status.sh")
+;; Inställningspanelen (settings-menu). Samma optimistiska mönster som
+;; selected_* ovan: klicket sätter s_*-variabeln direkt (brickan byter läge
+;; omedelbart) och kör åtgärden i bakgrunden. settings-status.sh håller
+;; variablerna i synk varje tick ifall något ändrats på annat håll.
+(defvar s_brightness 50)
+(defvar s_nightlight false)
+(defvar s_keep_awake false)
+(defvar s_mic_muted false)
+(defvar s_dnd false)
+(defvar s_rain false)
+(defvar s_bt_on false)
+(defvar s_bt_service false)
+(defvar s_profile "balanced")
+(defpoll settings_tick :interval "3s" :initial "" "~/.config/eww/scripts/settings-status.sh")
 
 ;; ===================== Batteri-meny =====================
 
@@ -284,41 +292,43 @@
 (defwidget settings-content []
   (box :class "menu-card" :orientation "vertical" :space-evenly false
     (label :class "menu-header" :halign "start" :text "Inställningar")
+    ;; osynlig - finns bara for att eww ska kora pollen medan panelen ar oppen
+    (label :visible false :text settings_tick)
     (box :class "menu-sep")
     ;; Ljusstyrka - min 5 % så att skärmen aldrig blir helt svart
     (box :orientation "horizontal" :space-evenly false :class "menu-item"
       (label :class "slider-icon" :text "󰃠")
       (scale :class "volume-scale" :hexpand true
-             :min 5 :max 101 :value {settings.brightness}
-             :onchange "~/.config/eww/scripts/settings-toggle.sh brightness {}")
-      (label :class "menu-item-time" :text "${settings.brightness}%"))
+             :min 5 :max 101 :value s_brightness
+             :onchange "brightnessctl -q set {}%; eww update s_brightness={}")
+      (label :class "menu-item-time" :text "${s_brightness}%"))
     (box :class "menu-sep")
     (box :orientation "horizontal" :space-evenly true :class "tile-grid"
-      (stile :active {settings.nightlight} :icon "󰖔" :text "Nattljus"
-             :onclick "~/.config/eww/scripts/settings-toggle.sh nightlight")
-      (stile :active {settings.keep_awake} :icon "󰅶" :text "Håll vaken"
-             :onclick "~/.config/eww/scripts/settings-toggle.sh keep-awake")
-      (stile :active {settings.mic_muted} :icon "${settings.mic_muted ? "󰍭" : "󰍬"}" :text "Mikrofon av"
-             :onclick "~/.config/eww/scripts/settings-toggle.sh mic"))
+      (stile :active s_nightlight :icon "󰖔" :text "Nattljus"
+             :onclick "eww update s_nightlight=${s_nightlight ? "false" : "true"}; ~/.config/eww/scripts/settings-toggle.sh nightlight &")
+      (stile :active s_keep_awake :icon "󰅶" :text "Håll vaken"
+             :onclick "eww update s_keep_awake=${s_keep_awake ? "false" : "true"}; ~/.config/eww/scripts/settings-toggle.sh keep-awake &")
+      (stile :active s_mic_muted :icon "${s_mic_muted ? "󰍭" : "󰍬"}" :text "Mikrofon av"
+             :onclick "eww update s_mic_muted=${s_mic_muted ? "false" : "true"}; ~/.config/eww/scripts/settings-toggle.sh mic &"))
     (box :orientation "horizontal" :space-evenly true :class "tile-grid"
-      (stile :active {settings.dnd} :icon "󰂛" :text "Stör ej"
-             :onclick "~/.config/eww/scripts/settings-toggle.sh dnd")
-      (stile :active {settings.bt_on} :icon "${settings.bt_on ? "󰂯" : "󰂲"}"
-             :text "${settings.bt_service ? "Bluetooth" : "Bluetooth (av)"}"
-             :onclick "~/.config/eww/scripts/settings-toggle.sh bluetooth")
-      (stile :active {settings.rain} :icon "󰖗" :text "Regn"
-             :onclick "~/.config/eww/scripts/settings-toggle.sh rain"))
+      (stile :active s_dnd :icon "󰂛" :text "Stör ej"
+             :onclick "eww update s_dnd=${s_dnd ? "false" : "true"}; ~/.config/eww/scripts/settings-toggle.sh dnd &")
+      (stile :active s_bt_on :icon "${s_bt_on ? "󰂯" : "󰂲"}"
+             :text "${s_bt_service ? "Bluetooth" : "Bluetooth (av)"}"
+             :onclick "~/.config/eww/scripts/settings-toggle.sh bluetooth &")
+      (stile :active s_rain :icon "󰖗" :text "Regn"
+             :onclick "eww update s_rain=${s_rain ? "false" : "true"}; ~/.config/eww/scripts/settings-toggle.sh rain &"))
     (box :class "menu-sep")
     (label :class "menu-subheader" :halign "start" :text "Energiprofil")
     (box :orientation "horizontal" :space-evenly true :class "segmented"
-      (button :class "seg ${settings.profile == "power-saver" ? "active" : ""}"
-              :onclick "~/.config/eww/scripts/settings-toggle.sh profile power-saver"
+      (button :class "seg ${s_profile == "power-saver" ? "active" : ""}"
+              :onclick "eww update s_profile=power-saver selected_profile=power-saver; ~/.config/eww/scripts/settings-toggle.sh profile power-saver &"
         (label :text "Spara"))
-      (button :class "seg ${settings.profile == "balanced" ? "active" : ""}"
-              :onclick "~/.config/eww/scripts/settings-toggle.sh profile balanced"
+      (button :class "seg ${s_profile == "balanced" ? "active" : ""}"
+              :onclick "eww update s_profile=balanced selected_profile=balanced; ~/.config/eww/scripts/settings-toggle.sh profile balanced &"
         (label :text "Balans"))
-      (button :class "seg ${settings.profile == "performance" ? "active" : ""}"
-              :onclick "~/.config/eww/scripts/settings-toggle.sh profile performance"
+      (button :class "seg ${s_profile == "performance" ? "active" : ""}"
+              :onclick "eww update s_profile=performance selected_profile=performance; ~/.config/eww/scripts/settings-toggle.sh profile performance &"
         (label :text "Prestanda")))
     (box :class "menu-sep")
     (button :class "menu-item"

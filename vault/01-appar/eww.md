@@ -90,3 +90,13 @@ uppdaterar `settings` direkt efteråt.
 
 Bluetooth kräver att `bluetooth.service` kör. Den var avstängd 2026-10-09, och
 `bluetoothctl` hänger då i stället för att ge fel, därav alla timeouts.
+
+### Responsivitet (2026-10-09)
+
+Första versionen av panelen kändes som att klick ibland inte gick fram. Brickorna
+bytte läge först när skriptet och en ny statusläsning var klara (upp till ett par
+sekunder), och ljusstyrkereglaget fick tillbaka värden mitt i en dragning. Nu
+används samma optimistiska mönster som i resten av eww: `s_*`-variabler som
+sätts direkt i onclick, åtgärden körs i bakgrunden (`&`), och
+`settings-status.sh` synkar variablerna varje tick. Ljusstyrkan sätts direkt med
+`brightnessctl` i onchange.

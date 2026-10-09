@@ -1,9 +1,10 @@
 #!/bin/bash
-# Åtgärder för inställningspanelen (settings-menu i eww.yuck). Uppdaterar
-# panelens läge direkt efteråt så att reglaget inte väntar på nästa poll.
+# Åtgärder för inställningspanelen (settings-menu i eww.yuck). Panelen har
+# redan bytt läge optimistiskt vid klicket - refresh efteråt rättar det om
+# åtgärden misslyckades (t.ex. Bluetooth när tjänsten inte kör).
 
 refresh() {
-    eww update settings="$(~/.config/eww/scripts/settings-status.sh)" 2>/dev/null
+    ~/.config/eww/scripts/settings-status.sh >/dev/null
 }
 
 case "$1" in
@@ -46,12 +47,8 @@ case "$1" in
     wallpaper)
         systemctl --user start --no-block wallpaper-cycle.service
         ;;
-    brightness)
-        brightnessctl set "$2%" >/dev/null
-        ;;
     profile)
         powerprofilesctl set "$2"
-        eww update selected_profile="$2"
         ;;
 esac
 
