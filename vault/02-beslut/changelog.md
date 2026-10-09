@@ -2,6 +2,12 @@
 
 Nyast överst.
 
+## 2026-10-09 — Repot flyttat till Bakjob/helvetes-bra-ris
+
+GitHub-repot flyttades från `HexagogoGames` till `Bakjob`. Den lokala mappen
+ligger kvar i `~/dotfiles`, så alla symlinkar är orörda. Remote och `CLAUDE.md`
+är uppdaterade till den nya adressen.
+
 ## 2026-10-09 — Rofi: ett klick startar appen
 
 Ikonerna i app-menyn (Super + Space) gick inte att klicka på. Rofi kräver

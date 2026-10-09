@@ -7,14 +7,13 @@ punkten är klar, eller flytta den till [[../02-beslut/changelog]] med datum.
 
 ## Aktivt öppna
 
-- **Peka om git-remoten till nya GitHub-platsen** (2026-10-09). Repot flyttades
-  från `HexagogoGames/helvetes-bra-ris` till `Bakjob/helvetes-bra-ris`. GitHub
-  vidarebefordrar från den gamla adressen än så länge, men Claude fick inte
-  ändra remoten själv. Kör
-  `git -C ~/dotfiles remote set-url origin git@github.com:Bakjob/helvetes-bra-ris.git`,
-  och uppdatera sedan Git-avsnittet i `CLAUDE.md`.
+*(inget just nu — se "Löst" nedan för det senaste)*
 
 ## Löst (kvar som referens en kort tid)
+
+- ~~Peka om git-remoten~~ — löst 2026-10-09. Repot flyttades till
+  `Bakjob/helvetes-bra-ris`, och Jakob körde `git remote set-url`. Fetch och
+  push fungerar mot den nya adressen.
 
 - ~~Strömknapp-eko efter vila (försök 2, markörfil)~~ — **bekräftat
   fungerande 2026-09-18.** Jakob testade en riktig vila/väck-cykel:

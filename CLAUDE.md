@@ -84,6 +84,6 @@ Se `vault/README.md` för full struktur.
 
 ## Git
 
-Repot har en remote (`github.com/HexagogoGames/helvetes-bra-ris`) och Jakob har gett
+Repot har en remote (`github.com/Bakjob/helvetes-bra-ris`) och Jakob har gett
 löpande klartecken att pusha. Committa löpande med tydliga meddelanden och pusha efter
 varje commit utan att fråga om lov varje gång.
