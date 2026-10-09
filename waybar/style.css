@@ -72,6 +72,7 @@ window#waybar {
 #clock,
 #cpu,
 #custom-gpu,
+#custom-network,
 #custom-systemstats,
 #pulseaudio,
 #battery,
@@ -86,6 +87,7 @@ window#waybar {
    text på en rad — tydlig hover-lyft (ljusare + liten uppåtrörelse). */
 #cpu,
 #custom-gpu,
+#custom-network,
 #custom-systemstats,
 #pulseaudio,
 #battery,
@@ -100,6 +102,7 @@ window#waybar {
 
 #cpu:hover,
 #custom-gpu:hover,
+#custom-network:hover,
 #custom-systemstats:hover,
 #pulseaudio:hover,
 #battery:hover,
@@ -171,4 +174,14 @@ tooltip {
 tooltip label {
     color: @fg;
     padding: 4px 6px;
+}
+
+/* Wifi-knappen: guld när VPN är på, dämpad när wifi är av/frånkopplat */
+#custom-network.vpn {
+    color: @accent;
+}
+
+#custom-network.off,
+#custom-network.disconnected {
+    color: @fg-dim;
 }

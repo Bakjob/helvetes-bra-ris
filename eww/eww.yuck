@@ -58,7 +58,7 @@
         (label :class "menu-item-time" :text "${battery.t_performance}")))
     (box :class "menu-sep")
     (button :class "menu-item"
-            :onclick "eww close battery-menu; gnome-control-center power &"
+            :onclick "eww close battery-menu; XDG_CURRENT_DESKTOP=GNOME gnome-control-center power &"
       (label :class "menu-item-label" :halign "start" :text "Energiinställningar"))))
 
 (defwindow battery-menu
@@ -144,7 +144,7 @@
           (label :class "menu-item-icon" :text "${network.active ? "󰄬" : (network.secured ? "󰌾" : "")}"))))
     (box :class "menu-sep")
     (button :class "menu-item"
-            :onclick "eww close wifi-menu; gnome-control-center wifi &"
+            :onclick "eww close wifi-menu; XDG_CURRENT_DESKTOP=GNOME gnome-control-center wifi &"
       (label :class "menu-item-label" :halign "start" :text "Nätverksinställningar"))))
 
 (defwindow wifi-menu
@@ -225,7 +225,7 @@
             :onclick "eww close system-menu; pavucontrol &"
       (label :class "menu-item-label" :halign "start" :text "Ljudinställningar"))
     (button :class "menu-item"
-            :onclick "eww close system-menu; gnome-control-center &"
+            :onclick "eww close system-menu; XDG_CURRENT_DESKTOP=GNOME gnome-control-center &"
       (label :class "menu-item-label" :halign "start" :text "Inställningar"))
     (button :class "menu-item"
             :onclick "eww close system-menu; hyprlock &"

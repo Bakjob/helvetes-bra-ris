@@ -2,6 +2,15 @@
 
 Nyast överst.
 
+## 2026-10-09 — Regn v2, wifi-knapp i waybar, Inställningar fungerar
+
+- Regn-shadern omgjord (mjuk dis, tydliga linsdroppar, rinnande droppar), se
+  [[../04-tema/regn-shader]].
+- Ny wifi-knapp i waybar som öppnar wifi-listan och visar VPN, se
+  [[../01-appar/waybar]].
+- "Inställningar" gjorde ingenting: gnome-control-center startar inte utanför
+  GNOME. Fixat med `XDG_CURRENT_DESKTOP=GNOME`, se [[../01-appar/eww]].
+
 ## 2026-10-09 — Menyerna: svenska, wifi-lista, ljudenhet, wlogout-text
 
 - Regn-togglen: första försöket med `hyprctl eval` stoppades av Hyprland

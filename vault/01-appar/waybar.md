@@ -29,3 +29,11 @@ Statusbar. Config: `waybar/config.jsonc` + `waybar/style.css`.
 `custom/gpu` uppdateras var 15:e sekund och tar fyra prov över ~2 s
 (`intel_gpu_top -n 4`). Fram till 2026-10-09 var det åtta prov (~4 s) var
 8:e sekund, alltså mätning halva tiden.
+
+## Wifi-knappen `custom/network` (2026-10-09)
+
+`scripts/network.sh` visar signalstaplar och en sköld 󰦝 när VPN är på, och
+tooltipen visar SSID, signal och VPN-namn. Klick öppnar eww-`wifi-menu`. Den
+ligger före `pulseaudio`, vilket matchar `.align-wifi` (margin-right 256px) i
+`eww.scss`. Förut gick wifi-listan bara att nå via "Nätverk"-raden i
+systemmenyn, och Jakob hittade den inte.

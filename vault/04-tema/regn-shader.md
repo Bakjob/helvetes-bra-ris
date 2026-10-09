@@ -66,3 +66,22 @@ Byggd 2026-09-18, inte utvärderad live än av Jakob. Om känslan/prestandan
 inte känns rätt: justera konstanterna direkt i `rain.glsl` (ingen
 programmeringskunskap krävs, bara siffror), eller strunta i hela grejen —
 den är designad för att vara helt riskfri att bara låta ligga oanvänd.
+
+## Version 2 (2026-10-09)
+
+Jakob tyckte att den första versionen hade kantiga moln och för otydliga droppar.
+- **Disen** var `hash(floor(uv * 3))`, alltså hårda 3×3-rutor. Nu används två
+  lager mjukt value noise som driver åt olika håll.
+- **Dropparna** fungerar som små linser: de visar bilden spegelvänd
+  (`-d * REFRACTION`) och har ljus glans och mörk kant. Två lager stillastående
+  droppar dyker upp och avdunstar, och större droppar rinner ner med lite
+  sidledsvickning. De lämnar ett spår av småpärlor och en klarare strimma i disen.
+- Fortfarande bara aritmetik och en texturuppslagning per pixel. Alla
+  reglage är konstanter överst i filen.
+- Kompilerar med `glslangValidator`. En Python/numpy-version användes för att
+  förhandsgranska en bildruta mot bakgrundsbilden innan Jakob testade.
+
+**Energi:** med regnet på drog datorn ~11,1 W (upower energy-rate, normal
+användning). Det mesta av merkostnaden kommer från att damage tracking är av, så
+hela skärmen och blurren komponeras om 60 gånger per sekund. Shaderns matte är en
+liten del.

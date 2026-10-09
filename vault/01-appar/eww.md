@@ -66,3 +66,10 @@ inte förstör kommandot.
 All text i menyerna är på svenska. Batteriprofilerna heter Strömsparläge,
 Balanserat och Prestanda, och `battery.sh` översätter upowers tillstånd
 (discharging → "laddar ur" osv).
+
+## gnome-control-center utanför GNOME
+
+`gnome-control-center` vägrar starta under Hyprland ("only supported under GNOME
+and Unity"). Alla genvägar kör den därför med `XDG_CURRENT_DESKTOP=GNOME`.
+Panelerna för wifi, Bluetooth, ljud, energi, skrivare och användare fungerar.
+Skärm-, tangentbords- och muspanelerna påverkar inte Hyprland.

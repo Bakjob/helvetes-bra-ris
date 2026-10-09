@@ -20,6 +20,7 @@
         "custom/dotfiles",
         "cpu",
         "custom/gpu",
+        "custom/network",
         "pulseaudio",
         "battery",
         "custom/systemstats"
@@ -78,6 +79,13 @@
         "interval": 15,
         "format": "󰢮 {}",
         "on-click": "kitty --class btop-float -e intel_gpu_top"
+    },
+
+    "custom/network": {
+        "exec": "~/.config/waybar/scripts/network.sh",
+        "return-type": "json",
+        "interval": 5,
+        "on-click": "eww open wifi-menu --toggle"
     },
 
     "custom/systemstats": {
