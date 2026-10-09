@@ -308,3 +308,96 @@ window, .background {
     border-color: $accent;
     color: $bg;
 }
+
+/* ===== Effektgalleriet (effects-menu) ===== */
+.fx-panel {
+    padding: 20px;
+}
+
+.fx-header {
+    font-size: 18px;
+    padding-bottom: 2px;
+}
+
+.fx-sub {
+    color: $fg-dim;
+    font-size: 11px;
+    padding-bottom: 10px;
+}
+
+.fx-section {
+    color: $fg-dim;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 2px 6px 8px 6px;
+}
+
+.fx-card {
+    padding: 8px 8px 10px 8px;
+    margin: 6px;
+    border-radius: 18px;
+    background-color: rgba($fg, 0.04);
+    border: 1px solid rgba($border, 0.6);
+    min-width: 192px;
+    transition: background-color 150ms ease-out, border-color 150ms ease-out;
+}
+
+.fx-card:hover {
+    background-color: rgba($fg, 0.08);
+    border-color: rgba($accent, 0.5);
+}
+
+.fx-card.active {
+    background-color: rgba($accent, 0.12);
+    border-color: $accent;
+}
+
+.fx-name {
+    color: $fg;
+    font-weight: bold;
+    padding-top: 8px;
+}
+
+.fx-card.active .fx-name {
+    color: $accent;
+}
+
+.fx-desc {
+    color: $fg-dim;
+    font-size: 11px;
+    padding-top: 2px;
+}
+
+.fx-badge {
+    font-size: 10px;
+    padding: 1px 8px;
+    margin-top: 8px;
+    border-radius: 999px;
+}
+
+.fx-badge.free {
+    color: $green;
+    background-color: rgba($green, 0.14);
+}
+
+.fx-badge.cost {
+    color: $red;
+    background-color: rgba($red, 0.14);
+}
+
+.fx-check {
+    background-color: $accent;
+    color: $bg;
+    border-radius: 999px;
+    padding: 2px 6px;
+    margin: 6px;
+}
+
+.fx-status {
+    color: $green;
+    font-size: 11px;
+}
+
+.fx-status.cost {
+    color: $red;
+}

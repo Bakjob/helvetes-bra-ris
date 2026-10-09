@@ -32,9 +32,6 @@ case "$1" in
     dnd)
         swaync-client -d >/dev/null
         ;;
-    rain)
-        ~/.config/hypr/scripts/toggle-rain.sh
-        ;;
     bluetooth)
         if ! systemctl is-active --quiet bluetooth; then
             notify-send "Bluetooth är inte igång" "Tjänsten bluetooth.service körs inte. Starta den med: sudo systemctl enable --now bluetooth"

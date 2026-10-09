@@ -59,9 +59,9 @@ sleep 0.3
 hyprctl dispatch 'hl.dsp.exec_cmd("hyprpaper")' >/dev/null 2>&1 || true
 
 # Kantfärgerna (hypr/colors.lua) kräver en reload. Den nollställer
-# runtime-inställningar, så regn-shadern slås på igen efteråt om den var på.
+# runtime-inställningar, så valda skärmeffekter laddas igen efteråt.
 hyprctl reload >/dev/null 2>&1 || true
-"$DOTFILES/hypr/scripts/toggle-rain.sh" restore || true
+"$DOTFILES/hypr/scripts/effects.sh" apply || true
 
 # waybar och swaync laddas bara om, de startas inte om. En omstart av swaync
 # stängde av Stör ej och tömde notishistoriken varje timme. SIGUSR2 = waybar

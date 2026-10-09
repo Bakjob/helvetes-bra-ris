@@ -2,6 +2,14 @@
 
 Nyast överst.
 
+## 2026-10-09 — Skärmeffekter med galleri
+
+Jakob ville ha alla föreslagna shaders som inställningar med förhandsvisning.
+Byggt som en gemensam mall (`effects.glsl`) och ett skript (`effects.sh`), så att
+effekterna kan kombineras och damage tracking bara stängs av när något rörligt är
+på. Galleri i eww med renderade förhandsbilder. Regnet ingår, och
+`toggle-rain.sh`/`rain.glsl` är borttagna. Se [[../04-tema/skarmeffekter]].
+
 ## 2026-10-09 — Responsivare inställningspanel, stillastående regn som standard
 
 - Inställningspanelen byter läge direkt vid klick, se [[../01-appar/eww]].

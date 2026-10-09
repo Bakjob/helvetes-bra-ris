@@ -100,3 +100,10 @@ används samma optimistiska mönster som i resten av eww: `s_*`-variabler som
 sätts direkt i onclick, åtgärden körs i bakgrunden (`&`), och
 `settings-status.sh` synkar variablerna varje tick. Ljusstyrkan sätts direkt med
 `brightnessctl` i onchange.
+
+## Effektgalleriet `effects-menu` (2026-10-09)
+
+Galleri med förhandsbilder för skärmeffekterna, öppnas från inställningspanelens
+"Effekter"-bricka (som ersatte Regn-brickan). `fx_*`-variabler sätts optimistiskt
+vid klick, och `effects.sh sync` (defpoll `fx_tick`) synkar dem. Se
+[[../04-tema/skarmeffekter]].

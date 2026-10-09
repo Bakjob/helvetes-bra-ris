@@ -1,5 +1,9 @@
 # Regn-shader — experimentell, opt-in
 
+> **Ersatt 2026-10-09** av [[skarmeffekter]]: regnet är nu en av effekterna i
+> `hypr/shaders/effects.glsl`, och `toggle-rain.sh`/`rain.glsl` är borttagna.
+> Resten av filen är historik.
+
 Jakob ville förstärka "blöt höstskog"-känslan (se [[svensk-skog-palett]],
 [[design]]) med en visuell regneffekt: "lite misty kanske och dunkelt, och
 väldigt väldigt blött". Bad uttryckligen om att det **inte ska vara

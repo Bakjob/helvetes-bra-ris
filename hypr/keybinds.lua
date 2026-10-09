@@ -33,13 +33,14 @@ hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd("~/.config/hypr/scripts/screensho
 -- Helskärmsskärmdump, samma notis+redigera-flöde
 hl.bind(mod .. " + SHIFT + F", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh full"))
 
--- EXPERIMENTELL regn-shader (av som standard, ingen autostart) - slå på/av
+-- Regn på skärmen (en av skärmeffekterna, se vault/04-tema/skarmeffekter.md -
+-- övriga effekter väljs i eww-galleriet Inställningar → Effekter). Slås på/av
 -- live, rör ingen config. Stillastående regn (i princip gratis). Gillar du inte den: ta bara bort den här raden.
 -- Se vault/04-tema/regn-shader.md.
-hl.bind(mod .. " + SHIFT + W", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle-rain.sh"))
+hl.bind(mod .. " + SHIFT + W", hl.dsp.exec_cmd("~/.config/hypr/scripts/effects.sh toggle rain"))
 -- Animerat (rinnande) regn - kostar ~1,9 W eftersom hela skärmen ritas om
 -- 60 ggr/s. Super+Shift+W ovan ger stillastående regn, som är i princip gratis.
-hl.bind(mod .. " + ALT + W", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle-rain.sh animated"))
+hl.bind(mod .. " + ALT + W", hl.dsp.exec_cmd("~/.config/hypr/scripts/effects.sh toggle rain_anim"))
 
 -- Flytta/ändra storlek på fönster med mus + mod
 hl.bind(mod .. " + mouse:272", hl.dsp.window.drag())

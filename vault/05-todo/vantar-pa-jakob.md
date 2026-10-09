@@ -15,9 +15,9 @@ punkten är klar, eller flytta den till [[../02-beslut/changelog]] med datum.
   Bluetooth-brickan i inställningspanelen visar "Bluetooth (av)" och gör inget.
 - **Titta på inställningspanelen:** systemmenyn → Inställningar. Inte sedd av
   Claude.
-- **Se på regnet** (2026-10-09): Super+Shift+W = stillastående (gratis),
-  Super+Alt+W = animerat. Säg till om det blir skarvar eller flimmer i det
-  stillastående läget när fönster rör sig.
+- **Testa effektgalleriet** (2026-10-09): Inställningar → Effekter. Kolla att
+  galleriet får plats på skärmen, att markdimman ligger *nere* (annars är
+  y-axeln omvänd) och om det blir skarvar med stilla regn.
 - **Titta på wlogout** (Super+Shift+E): text under ikonerna och guldkant vid
   hover. Inte sett av Claude.
 - **Kolla efter nästa heltimme** att waybar och swaync fortfarande ser rätt ut,

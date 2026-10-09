@@ -43,10 +43,25 @@
 (defvar s_keep_awake false)
 (defvar s_mic_muted false)
 (defvar s_dnd false)
-(defvar s_rain false)
 (defvar s_bt_on false)
 (defvar s_bt_service false)
 (defvar s_profile "balanced")
+;; Effektgalleriet (effects-menu) - en fx_<id> per skärmeffekt, se
+;; hypr/scripts/effects.sh. Sätts optimistiskt vid klick, synkas av "sync".
+(defvar fx_grade false)
+(defvar fx_evening false)
+(defvar fx_groundfog false)
+(defvar fx_grain false)
+(defvar fx_frost false)
+(defvar fx_rain false)
+(defvar fx_rain_anim false)
+(defvar fx_driftfog false)
+(defvar fx_leaves false)
+(defvar fx_fireflies false)
+(defvar fx_snow false)
+(defvar fx_any false)
+(defvar fx_animated false)
+(defpoll fx_tick :interval "5s" :initial "" "~/.config/hypr/scripts/effects.sh sync")
 (defpoll settings_tick :interval "3s" :initial "" "~/.config/eww/scripts/settings-status.sh")
 
 ;; ===================== Batteri-meny =====================
@@ -316,8 +331,8 @@
       (stile :active s_bt_on :icon "${s_bt_on ? "󰂯" : "󰂲"}"
              :text "${s_bt_service ? "Bluetooth" : "Bluetooth (av)"}"
              :onclick "~/.config/eww/scripts/settings-toggle.sh bluetooth &")
-      (stile :active s_rain :icon "󰖗" :text "Regn"
-             :onclick "eww update s_rain=${s_rain ? "false" : "true"}; ~/.config/eww/scripts/settings-toggle.sh rain &"))
+      (stile :active fx_any :icon "󰸌" :text "Effekter"
+             :onclick "eww close settings-menu; eww open effects-menu"))
     (box :class "menu-sep")
     (label :class "menu-subheader" :halign "start" :text "Energiprofil")
     (box :orientation "horizontal" :space-evenly true :class "segmented"
@@ -353,3 +368,90 @@
       (eventbox :onclick "true"
         (box :class "align-system"
           (settings-content))))))
+
+;; ===================== Effektgalleri =====================
+
+;; Ett kort per effekt: förhandsbild (renderad av
+;; hypr/scripts/render-effect-previews.py), namn, kostnad och beskrivning.
+(defwidget fxcard [id name desc active animated]
+  (button :class "fx-card ${active ? "active" : ""}"
+          :onclick "eww update fx_${id}=${active ? "false" : "true"}; ~/.config/hypr/scripts/effects.sh toggle ${id} &"
+    (box :orientation "vertical" :space-evenly false
+      (overlay
+        (image :path "/home/jakob/dotfiles/images/effect-previews/${id}.png"
+               :image-width 192 :image-height 128)
+        (label :class "fx-check" :halign "end" :valign "start" :visible active :text "󰄬"))
+      (box :orientation "horizontal" :space-evenly false
+        (label :class "fx-name" :halign "start" :hexpand true :text name)
+        (label :class "fx-badge ${animated ? "cost" : "free"}" :text "${animated ? "~2 W" : "Gratis"}"))
+      (label :class "fx-desc" :halign "start" :xalign 0 :wrap true :text desc))))
+
+(defwidget effects-content []
+  (box :class "menu-card fx-panel" :orientation "vertical" :space-evenly false
+    ;; osynlig - finns bara för att pollen ska köras medan galleriet är öppet
+    (label :visible false :text fx_tick)
+    (box :orientation "horizontal" :space-evenly false
+      (box :orientation "vertical" :space-evenly false :hexpand true
+        (label :class "menu-header fx-header" :halign "start" :text "Effekter")
+        (label :class "fx-sub" :halign "start"
+               :text "Klicka för att slå på/av. Effekterna kan kombineras."))
+      (button :class "icon-btn" :valign "start" :onclick "eww close effects-menu"
+        (label :text "󰅖")))
+    (box :class "menu-sep")
+    (box :orientation "horizontal" :space-evenly false :spacing 18
+      (box :orientation "vertical" :space-evenly false
+        (label :class "fx-section" :halign "start" :text "Stillastående · gratis")
+        (box :orientation "horizontal" :space-evenly true
+          (fxcard :id "grade" :name "Höstljus" :active fx_grade :animated false
+                  :desc "Varma skuggor, mossgröna mellantoner, mjuk vinjett.")
+          (fxcard :id "evening" :name "Kvällsläge" :active fx_evening :animated false
+                  :desc "Mörkare och kallare toner för kvällen.")
+          (fxcard :id "groundfog" :name "Markdimma" :active fx_groundfog :animated false
+                  :desc "Dimma som ligger tät längs nederkanten."))
+        (box :orientation "horizontal" :space-evenly true
+          (fxcard :id "grain" :name "Filmkorn" :active fx_grain :animated false
+                  :desc "Fint, stilla korn som på analog film.")
+          (fxcard :id "frost" :name "Frost" :active fx_frost :animated false
+                  :desc "Iskristaller som växer in från hörnen.")
+          (fxcard :id "rain" :name "Regn" :active fx_rain :animated false
+                  :desc "Droppar och dis på rutan, stilla. Super+Shift+W.")))
+      (box :orientation "vertical" :space-evenly false
+        (label :class "fx-section" :halign "start" :text "Rörliga · ritar om skärmen hela tiden")
+        (box :orientation "horizontal" :space-evenly true
+          (fxcard :id "rain_anim" :name "Regn, rinnande" :active fx_rain_anim :animated true
+                  :desc "Droppar som rinner ner och lämnar spår. Super+Alt+W.")
+          (fxcard :id "driftfog" :name "Drivande dimma" :active fx_driftfog :animated true
+                  :desc "Dimma som långsamt driver förbi.")
+          (fxcard :id "leaves" :name "Fallande löv" :active fx_leaves :animated true
+                  :desc "Höstlöv i guld och rost som singlar ner."))
+        (box :orientation "horizontal" :space-evenly true
+          (fxcard :id "fireflies" :name "Eldflugor" :active fx_fireflies :animated true
+                  :desc "Små guldljus som glöder och driver.")
+          (fxcard :id "snow" :name "Snö" :active fx_snow :animated true
+                  :desc "Stilla snöfall i tre djup.")
+          ;; "Inga effekter" - stänger av allt
+          (button :class "fx-card ${fx_any ? "" : "active"}"
+                  :onclick "~/.config/hypr/scripts/effects.sh off &"
+            (box :orientation "vertical" :space-evenly false
+              (overlay
+                (image :path "/home/jakob/dotfiles/images/effect-previews/none.png"
+                       :image-width 192 :image-height 128)
+                (label :class "fx-check" :halign "end" :valign "start" :visible {!fx_any} :text "󰄬"))
+              (box :orientation "horizontal" :space-evenly false
+                (label :class "fx-name" :halign "start" :hexpand true :text "Inga effekter"))
+              (label :class "fx-desc" :halign "start" :xalign 0 :wrap true
+                     :text "Stäng av allt - skärmen som vanligt."))))))
+    (box :class "menu-sep")
+    (label :class "fx-status ${fx_animated ? "cost" : ""}" :halign "start"
+           :text "${fx_animated ? "En rörlig effekt är på: hela skärmen ritas om 60 ggr/s, ca 2 W extra." : "Inga rörliga effekter på: ingen extra energiförbrukning."}")))
+
+(defwindow effects-menu
+  :monitor 0
+  :namespace "eww-dropdown"
+  :geometry (geometry :x "0" :y "0" :width "100%" :height "100%" :anchor "top left")
+  :stacking "overlay"
+  :focusable false
+  (eventbox :onclick "eww close effects-menu"
+    (box :class "backdrop" :halign "center" :valign "center"
+      (eventbox :onclick "true"
+        (effects-content)))))
