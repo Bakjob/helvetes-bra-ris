@@ -26,8 +26,9 @@ kitty  = { template = 'kitty-colors.conf', target = '/home/jakob/dotfiles/kitty/
 swaync = { template = 'swaync-colors.css', target = '/home/jakob/dotfiles/swaync/colors.css' }
 hypr   = { template = 'hypr-colors.lua',   target = '/home/jakob/dotfiles/hypr/colors.lua' }
 rofi   = { template = 'rofi-colors.rasi',  target = '/home/jakob/dotfiles/rofi/colors.rasi' }
+eww    = { template = 'eww-colors.scss',   target = '/home/jakob/dotfiles/eww/colors.scss' }
 
 [hooks]
 # Inga hooks härifrån - hypr/scripts/wallpaper-cycle.sh sköter omstart av
-# waybar/swaync/hyprpaper och hyprctl reload separat, EFTER att wallust
+# omladdning av waybar/swaync, omstart av hyprpaper och hyprctl reload separat, EFTER att wallust
 # skrivit templates. Hooks här skulle race:a mot skriptets egen ordning.

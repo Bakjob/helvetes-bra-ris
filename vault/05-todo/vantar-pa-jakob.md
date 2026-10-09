@@ -7,7 +7,14 @@ punkten är klar, eller flytta den till [[../02-beslut/changelog]] med datum.
 
 ## Aktivt öppna
 
-*(inget just nu — se "Löst" nedan för det senaste)*
+- **Titta på eww-menyerna** (2026-10-09). Färgerna kommer nu från det dynamiska
+  temat, och det finns nya genvägar längst ner i volym-, wifi- och
+  batterimenyn. Claude har inte sett resultatet (inga skärmdumpar av menyerna).
+- **Testa regn-togglen, Super+Shift+W** (2026-10-09). Den använder nu
+  `hyprctl eval`, som Claude inte fick köra för att testa.
+- **Kolla efter nästa heltimme** att waybar och swaync fortfarande ser rätt ut,
+  och att Stör ej ligger kvar om den var på. Det är första körningen där de
+  laddas om i stället för att startas om.
 
 ## Löst (kvar som referens en kort tid)
 

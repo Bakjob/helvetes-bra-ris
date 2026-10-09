@@ -1,10 +1,16 @@
 #!/bin/bash
 # Ansluter med lösenordet användaren skrivit i eww-dialogen.
+#
+# SSID och lösenord hämtas från eww-variablerna (wifi_connect_ssid/_pw)
+# istället för att klistras in i onclick-strängen - ett ' i lösenordet
+# förstörde annars skal-kommandot. (Lösenordet syns fortfarande kort i
+# processlistan medan nmcli ansluter - `device wifi connect` har inget
+# passwd-file-alternativ, bara `connection up` har det.)
 
-SSID="$1"
-PASSWORD="$2"
+SSID=$(eww get wifi_connect_ssid)
+PASSWORD=$(eww get wifi_connect_pw)
 
-if [ -z "$PASSWORD" ]; then
+if [ -z "$PASSWORD" ] || [ -z "$SSID" ]; then
     exit 0
 fi
 

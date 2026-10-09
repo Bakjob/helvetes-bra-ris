@@ -21,6 +21,9 @@ det som ligger här är alltså exakt det som faktiskt används, inte en kopia.
 | `fastfetch/` | `~/.config/fastfetch` | systeminfo-fetch |
 | `starship.toml` | `~/.config/starship.toml` | shell-prompt |
 | `bashrc` | `~/.bashrc` | shell |
+| `spicetify/Themes/SvenskSkog/` | `~/.config/spicetify/Themes/SvenskSkog` | Spotify-tema (via spicetify-cli) |
+| `wallust/` | `~/.config/wallust` | dynamiskt tema per bakgrundsbild |
+| `systemd/user/*.{service,timer}` | enskilda filer i `~/.config/systemd/user/` | `wallpaper-cycle` (bakgrundsbyte varje heltimme) |
 
 ## vault/
 

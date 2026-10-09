@@ -10,7 +10,7 @@
 *~
 .DS_Store
 
-# Dynamiskt wallust-tema (se vault/04-tema/dynamiskt-tema.md): dessa fem
+# Dynamiskt wallust-tema (se vault/04-tema/dynamiskt-tema.md): dessa sex
 # filer skrivs om av wallpaper-cycle.sh vid varje bakgrundsbyte (antingen av
 # wallust eller kopierat från wallust/anchor/) - wallust/anchor/* och
 # wallust/templates/* är den faktiska källan till sanning i git, inte dessa.
@@ -19,6 +19,7 @@
 /swaync/colors.css
 /hypr/colors.lua
 /rofi/colors.rasi
+/eww/colors.scss
 
 # Symlink som pekar på vilken bakgrundsbild som visas just nu (skapas/ändras
 # av wallpaper-cycle.sh)

@@ -25,9 +25,14 @@ gissas.
 
 - `hypr/shaders/rain.glsl` — själva shadern. Ligger inert i repot, gör
   ingenting förrän den aktiveras.
-- `hypr/scripts/toggle-rain.sh` — slår på/av via `hyprctl keyword
-  decoration:screen_shader <path|"">` **live**, rör ingen configfil.
-  Håller reda på av/på-läge via en enkel markörfil (`~/.cache/rain-shader-on`).
+- `hypr/scripts/toggle-rain.sh` — slår på/av **live** via
+  `hyprctl eval 'hl.config({ decoration = { screen_shader = ... } })'`, rör
+  ingen configfil. `hyprctl keyword` fungerar inte med lua-config ("keyword
+  can't work with non-legacy parsers"), så den gamla versionen gjorde aldrig
+  något efter lua-migreringen (upptäckt 2026-10-09). Av/på läses från
+  `hyprctl getoption`. Markörfilen `~/.cache/rain-shader-on` betyder "ska vara
+  på", och `wallpaper-cycle.sh` kör `toggle-rain.sh restore` efter sin
+  timvisa `hyprctl reload`.
 - `hypr/keybinds.lua`: `Super+Shift+W` (ledig, `R` var redan upptagen av
   waybar-omstarten) kör toggle-skriptet.
 - **Ingen autostart** — av som standard varje inloggning, helt opt-in per

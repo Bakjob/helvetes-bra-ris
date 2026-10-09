@@ -2,7 +2,7 @@
 
 ## Vad hände
 
-Efter en (ofrivillig, se [[suspend-s2idle-uppstartsfel]]) hård omstart kom
+Efter en (ofrivillig, se [[s2idle-vaknar-aldrig]]) hård omstart kom
 Jakob tillbaka till en svart/tom bakgrund.
 
 ## Orsak

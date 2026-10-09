@@ -1,0 +1,2 @@
+-- Inga monitor-regler: Hyprland väljer själv upplösning/skalning för den
+-- inbyggda skärmen (eDP-1). Lägg regler här vid behov av extern skärm.

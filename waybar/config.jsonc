@@ -75,7 +75,7 @@
     "custom/gpu": {
         "exec": "~/.config/waybar/scripts/gpu.sh",
         "return-type": "json",
-        "interval": 8,
+        "interval": 15,
         "format": "󰢮 {}",
         "on-click": "kitty --class btop-float -e intel_gpu_top"
     },

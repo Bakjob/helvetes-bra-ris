@@ -1,3 +1,8 @@
+/* Colors live in colors.scss (rewritten by wallust on every wallpaper
+   change, or copied from wallust/anchor/ for the anchor image) - see
+   vault/04-tema/dynamiskt-tema.md. Only use the variables below here. */
+@import "colors";
+
 * {
     all: unset;
     font-family: "IBM Plex Mono", "JetBrainsMono Nerd Font", sans-serif;
@@ -43,22 +48,22 @@ window, .background {
 }
 
 .menu-card {
-    background-color: rgba(23, 33, 26, 0.65); /* glassy, blur via layerrule (namespace eww-dropdown) */
-    border: 1px solid rgba(63, 92, 66, 0.7);
+    background-color: rgba($bg, 0.65); /* glassy, blur via layerrule (namespace eww-dropdown) */
+    border: 1px solid rgba($border, 0.7);
     border-radius: 18px;
     padding: 14px;
     min-width: 280px;
 }
 
 .menu-header {
-    color: #ece3c6;
+    color: $fg;
     font-weight: bold;
     padding-bottom: 10px;
 }
 
 .menu-sep {
     min-height: 1px;
-    background-color: rgba(236, 227, 198, 0.08);
+    background-color: rgba($fg, 0.08);
     margin-bottom: 8px;
 }
 
@@ -69,19 +74,19 @@ window, .background {
 }
 
 .menu-item:hover {
-    background-color: rgba(236, 227, 198, 0.06);
+    background-color: rgba($fg, 0.06);
 }
 
 .menu-item.active {
-    background-color: rgba(58, 74, 61, 0.9);
+    background-color: rgba($hover, 0.9);
 }
 
 .menu-item-label {
-    color: #ece3c6;
+    color: $fg;
 }
 
 .menu-item.active .menu-item-label {
-    color: #d4a24a;
+    color: $accent;
 }
 
 /* VPN-raden i wifi-menyn - ikonen forst, guld nar VPN ar pa.
@@ -92,26 +97,26 @@ window, .background {
 }
 
 .vpn-row.active .menu-item-icon {
-    color: #d4a24a;
+    color: $accent;
 }
 
 .menu-item-time {
-    color: #93a08c;
+    color: $fg-dim;
 }
 
 .menu-item-icon {
-    color: #93a08c;
+    color: $fg-dim;
     padding: 0px 8px;
 }
 
 .icon-btn {
     padding: 8px;
     border-radius: 10px;
-    color: #ece3c6;
+    color: $fg;
 }
 
 .icon-btn:hover {
-    background-color: rgba(236, 227, 198, 0.08);
+    background-color: rgba($fg, 0.08);
 }
 
 .volume-scale {
@@ -121,52 +126,52 @@ window, .background {
 .volume-scale trough {
     min-height: 6px;
     border-radius: 999px;
-    background-color: rgba(236, 227, 198, 0.10);
+    background-color: rgba($fg, 0.10);
 }
 
 .volume-scale highlight {
     min-height: 6px;
     border-radius: 999px;
-    background-color: #d4a24a;
+    background-color: $accent;
 }
 
 .volume-scale slider {
     min-width: 14px;
     min-height: 14px;
     border-radius: 999px;
-    background-color: #ece3c6;
+    background-color: $fg;
 }
 
 .wifi-status-label {
-    color: #93a08c;
+    color: $fg-dim;
     padding: 4px 0px 10px 0px;
 }
 
 .wifi-status-success {
-    color: #adbc80;
+    color: $green;
 }
 
 .wifi-status-error {
-    color: #c1543f;
+    color: $red;
 }
 
 .wifi-password-input {
-    background-color: rgba(236, 227, 198, 0.06);
-    color: #ece3c6;
-    border: 1px solid rgba(63, 92, 66, 0.7);
+    background-color: rgba($fg, 0.06);
+    color: $fg;
+    border: 1px solid rgba($border, 0.7);
     border-radius: 10px;
     padding: 8px 12px;
     margin-bottom: 8px;
 }
 
 .wifi-connect-btn {
-    background-color: rgba(212, 162, 74, 0.14);
-    color: #d4a24a;
+    background-color: rgba($accent, 0.14);
+    color: $accent;
 }
 
 .wifi-connect-btn:hover {
-    background-color: #d4a24a;
-    color: #17211a;
+    background-color: $accent;
+    color: $bg;
 }
 
 /* Slide-toggle-look for checkbox-widgetar (eww har ingen egen switch-widget).
@@ -182,16 +187,16 @@ window, .background {
     min-width: 40px;
     min-height: 22px;
     border-radius: 999px;
-    background-color: rgba(236, 227, 198, 0.12);
-    border: 1px solid rgba(63, 92, 66, 0.7);
+    background-color: rgba($fg, 0.12);
+    border: 1px solid rgba($border, 0.7);
     background-image: none;
     box-shadow: none;
     transition: background-color 150ms ease-out;
 }
 
 .toggle-switch check:checked {
-    background-color: #d4a24a;
-    border-color: #d4a24a;
+    background-color: $accent;
+    border-color: $accent;
 }
 
 /* GNOME quick-settings-stil: fyrkantiga toggle-brickor sida vid sida,
@@ -204,44 +209,44 @@ window, .background {
     min-width: 96px;
     min-height: 72px;
     border-radius: 14px;
-    background-color: rgba(236, 227, 198, 0.06);
-    border: 1px solid rgba(63, 92, 66, 0.6);
+    background-color: rgba($fg, 0.06);
+    border: 1px solid rgba($border, 0.6);
     margin: 0px 4px;
     padding: 8px;
     transition: background-color 150ms ease-out, border-color 150ms ease-out;
 }
 
 .tile:hover {
-    background-color: rgba(236, 227, 198, 0.1);
+    background-color: rgba($fg, 0.1);
 }
 
 .tile-icon {
     font-size: 22px;
-    color: #93a08c;
+    color: $fg-dim;
 }
 
 .tile-label {
     font-size: 11px;
-    color: #93a08c;
+    color: $fg-dim;
     margin-top: 4px;
 }
 
 .tile.active {
-    background-color: #d4a24a;
-    border-color: #d4a24a;
+    background-color: $accent;
+    border-color: $accent;
 }
 
 .tile.active .tile-icon,
 .tile.active .tile-label {
-    color: #17211a;
+    color: $bg;
 }
 
 /* Varningsfarg for mer drastiska knappar (starta om/stang av) - samma
    rost-rod som resten av temat (kritiskt batteri osv). */
 .menu-item.danger .menu-item-label {
-    color: #c1543f;
+    color: $red;
 }
 
 .menu-item.danger:hover {
-    background-color: rgba(193, 84, 63, 0.14);
+    background-color: rgba($red, 0.14);
 }

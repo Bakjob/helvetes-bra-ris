@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Roterar bakgrundsbild (var 20:e minut, styrs av systemd/wallpaper-cycle.timer)
+# Roterar bakgrundsbild (varje heltimme, styrs av systemd/wallpaper-cycle.timer)
 # och drar ett nytt tema ur den nya bilden med wallust - utom för ankarbilden,
 # som återställer den handgjorda Svensk skog-paletten från wallust/anchor/.
 # Se vault/04-tema/dynamiskt-tema.md för hela arkitekturen.
@@ -43,6 +43,7 @@ if [ "$image" = "$ANCHOR_IMAGE" ]; then
     cp "$DOTFILES/wallust/anchor/swaync-colors.css" "$DOTFILES/swaync/colors.css"
     cp "$DOTFILES/wallust/anchor/hypr-colors.lua" "$DOTFILES/hypr/colors.lua"
     cp "$DOTFILES/wallust/anchor/rofi-colors.rasi" "$DOTFILES/rofi/colors.rasi"
+    cp "$DOTFILES/wallust/anchor/eww-colors.scss" "$DOTFILES/eww/colors.scss"
 else
     echo "Genererar tema med wallust..."
     wallust run "$image_path" --skip-sequences --quiet
@@ -50,25 +51,33 @@ fi
 
 # hyprpaper cachar sin bildväg vid start och har inget skriptbart IPC (bara
 # ett binärt Hyprwire-protokoll, ingen text-hyprctl) - enda tillförlitliga
-# sättet att byta bild är att döda och starta om den. waybar/swaync läser
-# heller inte om sin CSS live och måste startas om. rofi/eww behöver
-# ingenting (läser filer vid varje ny körning).
+# sättet att byta bild är att döda och starta om den. Den startas via
+# Hyprland (hyprctl dispatch exec_cmd), inte direkt härifrån: annars hamnar
+# den i den här systemd-tjänstens cgroup istället för i sessionen.
 pkill -x hyprpaper 2>/dev/null || true
 sleep 0.3
-setsid hyprpaper >/dev/null 2>&1 &
-disown
+hyprctl dispatch 'hl.dsp.exec_cmd("hyprpaper")' >/dev/null 2>&1 || true
 
+# Kantfärgerna (hypr/colors.lua) kräver en reload. Den nollställer
+# runtime-inställningar, så regn-shadern slås på igen efteråt om den var på.
 hyprctl reload >/dev/null 2>&1 || true
+"$DOTFILES/hypr/scripts/toggle-rain.sh" restore || true
 
-pkill -x waybar 2>/dev/null || true
-sleep 0.2
-setsid waybar >/dev/null 2>&1 &
-disown
+# waybar och swaync laddas bara om, de startas inte om. En omstart av swaync
+# stängde av Stör ej och tömde notishistoriken varje timme. SIGUSR2 = waybar
+# läser om config + CSS (och därmed colors.css). Kör waybar inte alls startas
+# den via Hyprland. eww läser om colors.scss själv när filen ändras.
+if pgrep -x waybar >/dev/null; then
+    pkill -SIGUSR2 -x waybar || true
+else
+    hyprctl dispatch 'hl.dsp.exec_cmd("waybar")' >/dev/null 2>&1 || true
+fi
 
-pkill -x swaync 2>/dev/null || true
-sleep 0.2
-setsid swaync >/dev/null 2>&1 &
-disown
+if pgrep -x swaync >/dev/null; then
+    swaync-client --reload-css >/dev/null 2>&1 || true
+else
+    hyprctl dispatch 'hl.dsp.exec_cmd("swaync")' >/dev/null 2>&1 || true
+fi
 
 # Befintliga kitty-fönster behåller sina färger tills de stängs (eller
 # ctrl+shift+f5 manuellt) - nya fönster som öppnas efter det här får de

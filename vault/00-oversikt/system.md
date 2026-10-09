@@ -14,7 +14,7 @@
 - **Ljudvisualisering:** [[../01-appar/cava|cava]] (inbäddad i waybar)
 - **Systemmonitor:** [[../01-appar/btop|btop]]
 - **Fetch-verktyg:** [[../01-appar/fastfetch|fastfetch]]
-- **Wallpaper:** `swaybg` med `~/Bilder/Wallpapers/hyprland-nebula.png`
+- **Wallpaper:** `hyprpaper`, byts varje heltimme av `wallpaper-cycle` (bilder i `images/backgrounds/`, tema via wallust, se [[../04-tema/dynamiskt-tema]])
 - **Skärmlås:** `hyprlock` + `hypridle`
 
 ## Var config faktiskt ligger

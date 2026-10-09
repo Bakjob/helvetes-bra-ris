@@ -5,7 +5,7 @@
 SSID="$1"
 
 eww close wifi-menu 2>/dev/null
-eww update wifi_connect_pw="" wifi_connect_error_msg="" wifi_connect_status="connecting"
+eww update wifi_connect_ssid="$SSID" wifi_connect_pw="" wifi_connect_error_msg="" wifi_connect_status="connecting"
 eww open wifi-connect --arg ssid="$SSID"
 
 if nmcli connection up id "$SSID" 2>/tmp/wifi-connect-err.log; then

@@ -12,11 +12,11 @@ window {
    recolorable via `color`). */
 button {
     color: #ece3c6;
-    background-color: rgba(44, 58, 46, 0.7);
+    background-color: rgba(51, 55, 36, 0.7);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 30%;
-    border: 1px solid rgba(63, 92, 66, 0.7);
+    border: 1px solid rgba(64, 68, 55, 0.7);
     border-radius: 20px;
     margin: 14px;
     min-width: 140px;

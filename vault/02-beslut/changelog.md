@@ -2,6 +2,25 @@
 
 Nyast överst.
 
+## 2026-10-09 — Åtgärder efter genomgången av repot
+
+Jakob valde punkterna 1–5, 8 (bara eww), 9–14 och 15 från genomgången (se
+[[../05-todo/wishlist]]):
+- Bakgrundsbytet laddar om waybar och swaync i stället för att starta om dem
+  (Stör ej och notiserna försvann varje timme), och hyprpaper startas via
+  Hyprland. Se [[../04-tema/dynamiskt-tema]].
+- Regn-togglen använder `hyprctl eval`, eftersom `hyprctl keyword` inte fungerar
+  med lua-config. Den slås på igen efter den timvisa reloaden. Se
+  [[../04-tema/regn-shader]].
+- De sista gamla gröna tonerna är bytta till mossgrönt (swaync-ankare, wlogout,
+  hyprlock, där bara ett färgvärde ändrades).
+- eww-menyerna följer det dynamiska temat (`eww/colors.scss`), stängs när man
+  väljer något, och har fått genvägar till inställningar. Volymmenyn visar rätt
+  ljudenhet, och ett `'` i wifi-lösenordet förstör inte längre kommandot. Se
+  [[../01-appar/eww]].
+- Inaktuella kommentarer och dokument rättade, README kompletterad, GPU-modulen
+  mäter mer sällan.
+
 ## 2026-10-09 — Repot flyttat till Bakjob/helvetes-bra-ris
 
 GitHub-repot flyttades från `HexagogoGames` till `Bakjob`. Den lokala mappen

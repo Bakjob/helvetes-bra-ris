@@ -13,8 +13,9 @@ egna färger, **utom** en vald ankarbild som alltid behåller den handgjorda
   [[../02-beslut/changelog]] — het ursprungligen `vårskog-1.jpg`, jag gissade
   fel årstid).
 - **Vilka appar som får dynamiska färger just nu:** waybar, kitty, rofi,
-  swaync, Hyprlands kantfärger. **Inte** (ännu): wlogout, hyprlock, btop,
-  fastfetch, starship, eww, cava, wob.
+  swaync, Hyprlands kantfärger, eww-menyerna (sedan 2026-10-09). **Inte**
+  (ännu): wlogout, hyprlock, btop, fastfetch, starship, cava, wob. Hyprlock
+  hålls medvetet statiskt, Jakob vill inte riskera att låsskärmen går sönder.
 - **Intervall:** klockstyrt, varje heltimme (`OnCalendar=hourly`) — ändrat
   2026-09-15 från det ursprungliga 20-minutersvalet ("går det inte bara att
   koppla till klockan? så varje timme byts det") efter att systemet redan var
@@ -43,8 +44,9 @@ mönster som resten av dotfiles) — wallust läser `wallust.toml` och
 `templates/` därifrån helt automatiskt, ingen `-C`/`-d`-flagga behövs vid
 körning.
 
-De fem "colors"-filerna (`waybar/colors.css`, `kitty/colors.conf`,
-`swaync/colors.css`, `hypr/colors.lua`, `rofi/colors.rasi`) är **inte
+De sex "colors"-filerna (`waybar/colors.css`, `kitty/colors.conf`,
+`swaync/colors.css`, `hypr/colors.lua`, `rofi/colors.rasi`,
+`eww/colors.scss`) är **inte
 längre gitspårade** — de skrivs om av antingen wallust eller en `cp` från
 `wallust/anchor/` varje bildbyte, så `wallust/anchor/*` är den faktiska
 källan till sanning i git (`git rm --cached`, `.gitignore`).
@@ -64,16 +66,23 @@ Varje körning:
    (samma ordning som hyprpapers gamla `order=default`).
 2. Räknar upp ett index i `~/.cache/dotfiles-wallpaper-index` (roterar runt).
 3. Pekar om symlinken `images/backgrounds/.current.jpg` mot den nya bilden.
-4. **Om det är ankarbilden:** kopierar `wallust/anchor/*` rakt in i de fem
+4. **Om det är ankarbilden:** kopierar `wallust/anchor/*` rakt in i de sex
    colors-filerna. **Annars:** kör `wallust run <bild>`, som skriver samma
-   fem filer via sina templates.
+   sex filer via sina templates.
 5. Byter faktisk bakgrund och plockar upp de nya färgerna:
-   - `hyprpaper`: dödas och startas om (se nedan, varför).
+   - `hyprpaper`: dödas och startas om (se nedan, varför). Startas via
+     `hyprctl dispatch 'hl.dsp.exec_cmd("hyprpaper")'` så att den hamnar i
+     Hyprland-sessionen och inte i tjänstens cgroup.
    - `hyprctl reload`: plockar upp `hypr/colors.lua` (`require("colors")` i
-     `hyprland.lua`).
-   - `waybar`/`swaync`: dödas och startas om — ingen av dem läser om sin CSS
-     live.
-   - `rofi`/`eww`: **ingenting** — läser sina filer vid varje ny körning.
+     `hyprland.lua`). Reloaden nollställer regn-shadern, så
+     `toggle-rain.sh restore` slår på den igen om den var på.
+   - `waybar`: **laddas om, startas inte om** (`SIGUSR2`, läser om config och
+     CSS). `swaync`: `swaync-client --reload-css`. Fram till 2026-10-09
+     dödades och startades båda om. Det stängde av Stör ej och tömde
+     notishistoriken varje timme, och processerna hamnade i
+     `wallpaper-cycle.service`s cgroup.
+   - `eww`: läser om `colors.scss` själv när filen ändras.
+   - `rofi`: **ingenting**, läser sina filer vid varje ny körning.
    - `kitty`: **ingenting automatiskt** — öppna fönster behåller sina färger
      tills de stängs (eller `ctrl+shift+f5` manuellt), nya fönster får de
      uppdaterade färgerna.
@@ -151,7 +160,7 @@ med riktiga körningar mot `höst-utsikt-1.jpg`.
   fade/transition-stöd (verifierat i källkoden, ingen sådan nyckel finns).
   Jakob valde att hoppa över det snarare än att bygga ännu ett Cargo/AUR-paket.
 - Fler appar skulle kunna få dynamiska färger senare (wlogout, hyprlock,
-  btop, fastfetch, starship, eww, cava, wob) — medvetet utanför scope för
+  btop, fastfetch, starship, cava, wob) — medvetet utanför scope för
   den första omgången.
 - Om fler bakgrundsbilder läggs till i `images/backgrounds/` uppdateras
   loopen automatiskt (skriptet läser mappen på nytt varje körning) — men

@@ -24,6 +24,7 @@
 (defvar wifi_connect_status "connecting")
 (defvar wifi_connect_error_msg "")
 (defvar wifi_connect_pw "")
+(defvar wifi_connect_ssid "")
 
 ;; Systemmeny (minne/temp/nät + snabbåtgärder) - CPU/GPU visas direkt i
 ;; waybar istället, se vault/04-tema/design.md
@@ -53,7 +54,11 @@
             :onclick "powerprofilesctl set performance; eww update selected_profile=performance"
       (box :orientation "horizontal" :space-evenly false
         (label :class "menu-item-label" :halign "start" :hexpand true :text "Performance")
-        (label :class "menu-item-time" :text "${battery.t_performance}")))))
+        (label :class "menu-item-time" :text "${battery.t_performance}")))
+    (box :class "menu-sep")
+    (button :class "menu-item"
+            :onclick "eww close battery-menu; gnome-control-center power &"
+      (label :class "menu-item-label" :halign "start" :text "Energiinställningar"))))
 
 (defwindow battery-menu
   :monitor 0
@@ -80,7 +85,11 @@
       (scale :class "volume-scale" :hexpand true
              :min 0 :max 150 :value "${selected_volume}"
              :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%; eww update selected_volume={}")
-      (label :class "menu-item-time" :text "${selected_volume}%"))))
+      (label :class "menu-item-time" :text "${selected_volume}%"))
+    (box :class "menu-sep")
+    (button :class "menu-item"
+            :onclick "eww close volume-menu; pavucontrol &"
+      (label :class "menu-item-label" :halign "start" :text "Ljudinställningar"))))
 
 (defwindow volume-menu
   :monitor 0
@@ -117,7 +126,11 @@
         (box :orientation "horizontal" :space-evenly false
           (label :class "menu-item-label" :halign "start" :hexpand true :text "${network.ssid}" :limit-width 20)
           (label :class "menu-item-icon" :text "${network.secured ? "󰌾" : ""}")
-          (label :class "menu-item-time" :text "${network.signal}%"))))))
+          (label :class "menu-item-time" :text "${network.signal}%"))))
+    (box :class "menu-sep")
+    (button :class "menu-item"
+            :onclick "eww close wifi-menu; gnome-control-center wifi &"
+      (label :class "menu-item-label" :halign "start" :text "Nätverksinställningar"))))
 
 (defwindow wifi-menu
   :monitor 0
@@ -156,9 +169,9 @@
              :password true
              :value wifi_connect_pw
              :onchange "eww update wifi_connect_pw={}"
-             :onaccept "~/.config/eww/scripts/wifi-submit-password.sh '${ssid}' '{}'")
+             :onaccept "~/.config/eww/scripts/wifi-submit-password.sh")
       (button :class "menu-item wifi-connect-btn"
-              :onclick "~/.config/eww/scripts/wifi-submit-password.sh '${ssid}' '${wifi_connect_pw}'"
+              :onclick "~/.config/eww/scripts/wifi-submit-password.sh"
         (label :halign "center" :text "Anslut")))))
 
 ;; ===================== Systemmeny =====================
@@ -194,23 +207,23 @@
           (label :class "tile-label" :text "Stör ej"))))
     (box :class "menu-sep")
     (button :class "menu-item"
-            :onclick "pavucontrol &"
+            :onclick "eww close system-menu; pavucontrol &"
       (label :class "menu-item-label" :halign "start" :text "Ljudinställningar"))
     (button :class "menu-item"
-            :onclick "gnome-control-center &"
+            :onclick "eww close system-menu; gnome-control-center &"
       (label :class "menu-item-label" :halign "start" :text "Inställningar"))
     (button :class "menu-item"
-            :onclick "hyprlock &"
+            :onclick "eww close system-menu; hyprlock &"
       (label :class "menu-item-label" :halign "start" :text "Lås skärm"))
     (button :class "menu-item"
-            :onclick "systemctl suspend"
+            :onclick "eww close system-menu; systemctl suspend"
       (label :class "menu-item-label" :halign "start" :text "Vila"))
     (box :class "menu-sep")
     (button :class "menu-item danger"
-            :onclick "systemctl reboot"
+            :onclick "eww close system-menu; systemctl reboot"
       (label :class "menu-item-label" :halign "start" :text "Starta om"))
     (button :class "menu-item danger"
-            :onclick "systemctl poweroff"
+            :onclick "eww close system-menu; systemctl poweroff"
       (label :class "menu-item-label" :halign "start" :text "Stäng av"))))
 
 (defwindow system-menu

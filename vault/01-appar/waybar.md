@@ -23,3 +23,9 @@ Statusbar. Config: `waybar/config.jsonc` + `waybar/style.css`.
 ## Relaterat
 
 [[cava]], [[btop]], [[eww]]
+
+## GPU-modulen
+
+`custom/gpu` uppdateras var 15:e sekund och tar fyra prov över ~2 s
+(`intel_gpu_top -n 4`). Fram till 2026-10-09 var det åtta prov (~4 s) var
+8:e sekund, alltså mätning halva tiden.

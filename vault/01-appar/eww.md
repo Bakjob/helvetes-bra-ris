@@ -20,3 +20,29 @@ direkt) syns inte.
 
 **`eww.scss` måste vara ren ASCII**, även i kommentarer. Annars faller hela
 stilmallen bort tyst, se [[vault/03-felsokning/eww-locale-och-scss-quirks]].
+
+## Färger följer det dynamiska temat (2026-10-09)
+
+`eww.scss` har inga hårdkodade färger längre. Den importerar `colors.scss`
+(`$bg`, `$fg`, `$fg-dim`, `$accent`, `$green`, `$red`, `$border`, `$hover`),
+som `wallpaper-cycle.sh` skriver vid varje bakgrundsbyte: med wallust från
+`wallust/templates/eww-colors.scss`, eller som kopia av
+`wallust/anchor/eww-colors.scss` för ankarbilden. `colors.scss` är gitignorerad.
+Mallen måste också vara ren ASCII (se ovan).
+
+## Menyerna stängs när man väljer något
+
+Knappar som öppnar ett program eller gör något stort (ljudinställningar,
+inställningar, lås, vila, starta om, stäng av) kör `eww close <meny>;` först.
+Tidigare låg menyn kvar ovanpå programmet som öppnades. Volym-, wifi- och
+batterimenyn har också fått en genväg längst ner: Ljudinställningar
+(pavucontrol), Nätverksinställningar (`gnome-control-center wifi`) och
+Energiinställningar (`gnome-control-center power`).
+
+## Wifi-lösenord
+
+`wifi-submit-password.sh` läser SSID och lösenord med `eww get`
+(`wifi_connect_ssid`/`wifi_connect_pw`) i stället för att få dem inklistrade i
+onclick-strängen. Förut förstörde ett `'` i lösenordet kommandot. Lösenordet
+syns fortfarande kort i processlistan medan nmcli ansluter, eftersom
+`nmcli device wifi connect` saknar passwd-file.
