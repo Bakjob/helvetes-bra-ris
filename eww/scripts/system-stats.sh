@@ -9,6 +9,10 @@ temp=$(($(cat /sys/class/thermal/thermal_zone1/temp 2>/dev/null || echo 0) / 100
 
 if LC_ALL=C nmcli -t -f STATE g 2>/dev/null | grep -q "^connected"; then
     net_state="Ansluten"
+    # Visa VPN direkt i nät-raden (och därmed i waybar-tooltipen)
+    if LC_ALL=C nmcli -t -f TYPE con show --active 2>/dev/null | grep -qxE "vpn|wireguard|tun"; then
+        net_state="Ansluten · VPN"
+    fi
 else
     net_state="Frånkopplad"
 fi

@@ -9,6 +9,9 @@
   :initial "{\"enabled\":true,\"ssid\":\"\"}"
   "~/.config/eww/scripts/wifi-status.sh")
 (defpoll wifi_list :interval "6s" :initial "[]" "~/.config/eww/scripts/wifi-list.sh")
+(defpoll vpn_status :interval "4s"
+  :initial "{\"active\":false,\"name\":\"\"}"
+  "~/.config/eww/scripts/vpn-status.sh")
 
 ;; Optimistiska variabler - sätts direkt vid klick (ingen väntan på nästa poll),
 ;; och hålls i synk av respektive skript varje tick ifall något ändras på annat håll.
@@ -101,6 +104,12 @@
       (button :class "icon-btn"
               :onclick "nmcli radio wifi ${selected_wifi_enabled ? "off" : "on"}; eww update selected_wifi_enabled=${selected_wifi_enabled ? "false" : "true"}"
         (label :text "${selected_wifi_enabled ? "󰤨" : "󰤭"}")))
+    ;; VPN-rad - bara status (anslutning sköts av t.ex. eduVPN-klienten)
+    (box :orientation "horizontal" :space-evenly false
+         :class "menu-item vpn-row ${vpn_status.active ? "active" : ""}"
+      (label :class "menu-item-icon" :text "${vpn_status.active ? "󰦝" : "󰦞"}")
+      (label :class "menu-item-label" :halign "start" :hexpand true
+             :text "${vpn_status.active ? "VPN: ${vpn_status.name}" : "VPN av"}" :limit-width 22))
     (box :class "menu-sep")
     (for network in wifi_list
       (button :class "menu-item ${network.active ? "active" : ""}"

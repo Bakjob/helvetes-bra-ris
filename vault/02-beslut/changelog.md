@@ -2,6 +2,12 @@
 
 Nyast överst.
 
+## 2026-10-09 — VPN-status i wifi-menyn
+
+Jakob körde VPN (eduVPN) men inget i riggen visade det. Lade till en VPN-rad
+i eww-wifi-menyn och "· VPN" i systemmenyns nät-rad/waybar-tooltipen, se
+[[vault/01-appar/eww]].
+
 ## 2026-09-19 — Alla gröna toner omräknade till "moss green"-familjen
 
 Jakob: "om något är i färgen grön kan du ändra det till moss green. men

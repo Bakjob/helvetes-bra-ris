@@ -84,6 +84,15 @@ window, .background {
     color: #d4a24a;
 }
 
+/* VPN-raden i wifi-menyn - ikonen först, guld när VPN är på */
+.vpn-row .menu-item-icon {
+    padding: 0px 8px 0px 0px;
+}
+
+.vpn-row.active .menu-item-icon {
+    color: #d4a24a;
+}
+
 .menu-item-time {
     color: #93a08c;
 }
