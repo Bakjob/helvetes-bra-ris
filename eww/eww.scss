@@ -250,3 +250,29 @@ window, .background {
 .menu-item.danger:hover {
     background-color: rgba($red, 0.14);
 }
+
+/* Wifi-listan: signalstaplar till vanster, "Ansluten" under namnet pa det
+   anslutna natet, bock/las till hoger. */
+.wifi-signal {
+    color: $fg-dim;
+    font-size: 16px;
+    padding: 0px 12px 0px 0px;
+}
+
+.menu-item.active .wifi-signal,
+.menu-item.active .menu-item-icon {
+    color: $accent;
+}
+
+.wifi-sub {
+    color: $green;
+    font-size: 11px;
+    padding-top: 2px;
+}
+
+/* Mindre rubrik inne i en meny (t.ex. "Utgang" i volymmenyn) */
+.menu-subheader {
+    color: $fg-dim;
+    font-size: 11px;
+    padding: 0px 12px 6px 12px;
+}

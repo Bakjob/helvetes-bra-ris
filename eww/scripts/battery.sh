@@ -31,9 +31,19 @@ def fmt(h):
 mult = {"power-saver": 0.80, "balanced": 1.00, "performance": 1.30}
 profile = profile if profile in mult else "balanced"
 
+# upower ger engelska tillstand - visas pa svenska i menyn
+states = {
+    "charging": "laddar",
+    "discharging": "laddar ur",
+    "fully-charged": "fulladdat",
+    "pending-charge": "väntar på laddning",
+    "pending-discharge": "väntar",
+    "empty": "tomt",
+}
+
 result = {
     "pct": pct or "?",
-    "state": state or "unknown",
+    "state": states.get(state, state or "okänt"),
     "rate": "?",
     "profile": profile,
     "t_saver": "-",

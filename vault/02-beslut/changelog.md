@@ -2,6 +2,15 @@
 
 Nyast överst.
 
+## 2026-10-09 — Menyerna: svenska, wifi-lista, ljudenhet, wlogout-text
+
+- Regn-togglen: första försöket med `hyprctl eval` stoppades av Hyprland
+  ("uniform time requires debug damage tracking to be switched off"). Nu stängs
+  damage tracking av medan regnet är på, se [[../04-tema/regn-shader]].
+- All menytext på svenska, wifi-listan har signalstaplar och "Ansluten", och
+  volymmenyn har val av ljudenhet. Se [[../01-appar/eww]].
+- wlogout: text under ikonerna och guldkant vid hover, se [[../01-appar/wlogout]].
+
 ## 2026-10-09 — Åtgärder efter genomgången av repot
 
 Jakob valde punkterna 1–5, 8 (bara eww), 9–14 och 15 från genomgången (se

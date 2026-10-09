@@ -8,10 +8,13 @@ punkten är klar, eller flytta den till [[../02-beslut/changelog]] med datum.
 ## Aktivt öppna
 
 - **Titta på eww-menyerna** (2026-10-09). Färgerna kommer nu från det dynamiska
-  temat, och det finns nya genvägar längst ner i volym-, wifi- och
-  batterimenyn. Claude har inte sett resultatet (inga skärmdumpar av menyerna).
-- **Testa regn-togglen, Super+Shift+W** (2026-10-09). Den använder nu
-  `hyprctl eval`, som Claude inte fick köra för att testa.
+  temat, wifi-listan och volymmenyn (val av ljudenhet) är omgjorda, och det
+  finns nya genvägar längst ner. Claude har inte sett resultatet (inga skärmdumpar av menyerna).
+- **Testa regn-togglen igen, Super+Shift+W** (2026-10-09). Första försöket
+  föll på damage tracking. Nu stängs den av medan regnet är på. Fortfarande
+  otestat av Claude.
+- **Titta på wlogout** (Super+Shift+E): text under ikonerna och guldkant vid
+  hover. Inte sett av Claude.
 - **Kolla efter nästa heltimme** att waybar och swaync fortfarande ser rätt ut,
   och att Stör ej ligger kvar om den var på. Det är första körningen där de
   laddas om i stället för att startas om.

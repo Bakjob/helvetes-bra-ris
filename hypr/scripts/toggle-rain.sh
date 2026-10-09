@@ -10,8 +10,21 @@
 STATE="$HOME/.cache/rain-shader-on"
 SHADER="$HOME/.config/hypr/shaders/rain.glsl"
 
+# Shadern använder `uniform float time` (animerat regn), och Hyprland vägrar
+# då ladda den om inte debug:damage_tracking är 0 (= rita om hela skärmen
+# varje bildruta). Det kostar lite batteri, så damage tracking slås på igen
+# (2 = standard, full) när regnet stängs av.
 set_shader() {
-    hyprctl eval "hl.config({ decoration = { screen_shader = \"$1\" } })" >/dev/null
+    # Två separata anrop i rätt ordning (en lua-tabell har ingen garanterad
+    # ordning): damage tracking av FÖRE shadern laddas, och på igen EFTER att
+    # den tagits bort.
+    if [ -n "$1" ]; then
+        hyprctl eval "hl.config({ debug = { damage_tracking = 0 } })" >/dev/null
+        hyprctl eval "hl.config({ decoration = { screen_shader = \"$1\" } })" >/dev/null
+    else
+        hyprctl eval "hl.config({ decoration = { screen_shader = \"\" } })" >/dev/null
+        hyprctl eval "hl.config({ debug = { damage_tracking = 2 } })" >/dev/null
+    fi
 }
 
 if [ "${1:-}" = "restore" ]; then

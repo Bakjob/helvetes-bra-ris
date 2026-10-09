@@ -30,7 +30,12 @@ gissas.
   ingen configfil. `hyprctl keyword` fungerar inte med lua-config ("keyword
   can't work with non-legacy parsers"), så den gamla versionen gjorde aldrig
   något efter lua-migreringen (upptäckt 2026-10-09). Av/på läses från
-  `hyprctl getoption`. Markörfilen `~/.cache/rain-shader-on` betyder "ska vara
+  `hyprctl getoption`. Shadern använder `uniform float time`, och Hyprland vägrar
+  ladda den så länge `debug:damage_tracking` inte är 0 ("screen shader uses
+  uniform time which requires debug damage tracking to be switched off").
+  Skriptet stänger därför av damage tracking före shadern och slår på den igen
+  (2) när regnet stängs av. När regnet är på ritas hela skärmen om varje
+  bildruta, vilket kostar lite batteri. Markörfilen `~/.cache/rain-shader-on` betyder "ska vara
   på", och `wallpaper-cycle.sh` kör `toggle-rain.sh restore` efter sin
   timvisa `hyprctl reload`.
 - `hypr/keybinds.lua`: `Super+Shift+W` (ledig, `R` var redan upptagen av

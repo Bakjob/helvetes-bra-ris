@@ -6,15 +6,14 @@ window {
     background-color: rgba(23, 33, 26, 0.55); /* mörkgrön, genomskinlig — layerrule-blur syns igenom */
 }
 
-/* Ikon-rad utan textetiketter (beslutat i temaomdesignen): "text" i layout.json
-   blir bara tooltip vid hover, wlogout renderar aldrig text på knappen självt —
-   ikonen kommer helt från background-image nedan (Adwaita symbolic-ikoner,
-   recolorable via `color`). */
+/* Ikon (background-image nedan, Adwaita symbolic) med texten från
+   layout.json ("Lås", "Vila" ...) under. Ikonen flyttas upp en bit
+   (background-position) så att den inte krockar med texten. */
 button {
     color: #ece3c6;
     background-color: rgba(51, 55, 36, 0.7);
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center 40%;
     background-size: 30%;
     border: 1px solid rgba(64, 68, 55, 0.7);
     border-radius: 20px;
@@ -27,7 +26,19 @@ button {
 button:focus,
 button:hover {
     background-color: rgba(212, 162, 74, 0.18);
-    border-color: #404437;
+    border-color: #d4a24a;
+    color: #d4a24a;
+}
+
+/* Texten under ikonen */
+button label {
+    color: #ece3c6;
+    font-size: 15px;
+    padding-bottom: 18px;
+}
+
+button:focus label,
+button:hover label {
     color: #d4a24a;
 }
 

@@ -9,6 +9,7 @@
   :initial "{\"enabled\":true,\"ssid\":\"\"}"
   "~/.config/eww/scripts/wifi-status.sh")
 (defpoll wifi_list :interval "6s" :initial "[]" "~/.config/eww/scripts/wifi-list.sh")
+(defpoll audio_sinks :interval "3s" :initial "[]" "~/.config/eww/scripts/audio-sinks.sh")
 (defpoll vpn_status :interval "4s"
   :initial "{\"active\":false,\"name\":\"\"}"
   "~/.config/eww/scripts/vpn-status.sh")
@@ -43,17 +44,17 @@
     (button :class "menu-item ${selected_profile == "power-saver" ? "active" : ""}"
             :onclick "powerprofilesctl set power-saver; eww update selected_profile=power-saver"
       (box :orientation "horizontal" :space-evenly false
-        (label :class "menu-item-label" :halign "start" :hexpand true :text "Battery saver")
+        (label :class "menu-item-label" :halign "start" :hexpand true :text "Strömsparläge")
         (label :class "menu-item-time" :text "${battery.t_saver}")))
     (button :class "menu-item ${selected_profile == "balanced" ? "active" : ""}"
             :onclick "powerprofilesctl set balanced; eww update selected_profile=balanced"
       (box :orientation "horizontal" :space-evenly false
-        (label :class "menu-item-label" :halign "start" :hexpand true :text "Balanced")
+        (label :class "menu-item-label" :halign "start" :hexpand true :text "Balanserat")
         (label :class "menu-item-time" :text "${battery.t_balanced}")))
     (button :class "menu-item ${selected_profile == "performance" ? "active" : ""}"
             :onclick "powerprofilesctl set performance; eww update selected_profile=performance"
       (box :orientation "horizontal" :space-evenly false
-        (label :class "menu-item-label" :halign "start" :hexpand true :text "Performance")
+        (label :class "menu-item-label" :halign "start" :hexpand true :text "Prestanda")
         (label :class "menu-item-time" :text "${battery.t_performance}")))
     (box :class "menu-sep")
     (button :class "menu-item"
@@ -76,7 +77,7 @@
 
 (defwidget volume-content []
   (box :class "menu-card" :orientation "vertical" :space-evenly false
-    (label :class "menu-header" :halign "start" :text "${volume_info.sink}")
+    (label :class "menu-header" :halign "start" :text "Ljud")
     (box :class "menu-sep")
     (box :orientation "horizontal" :space-evenly false :class "menu-item"
       (button :class "icon-btn"
@@ -86,6 +87,15 @@
              :min 0 :max 150 :value "${selected_volume}"
              :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%; eww update selected_volume={}")
       (label :class "menu-item-time" :text "${selected_volume}%"))
+    (box :class "menu-sep")
+    ;; Val av ljudutgang - PipeWire flyttar med pagaende ljud till den nya enheten
+    (label :class "menu-subheader" :halign "start" :text "Utgång")
+    (for sink in audio_sinks
+      (button :class "menu-item ${sink.default ? "active" : ""}"
+              :onclick "pactl set-default-sink '${sink.name}'"
+        (box :orientation "horizontal" :space-evenly false
+          (label :class "menu-item-label" :halign "start" :hexpand true :text "${sink.desc}" :limit-width 28)
+          (label :class "menu-item-icon" :text "${sink.default ? "󰄬" : ""}"))))
     (box :class "menu-sep")
     (button :class "menu-item"
             :onclick "eww close volume-menu; pavucontrol &"
@@ -121,12 +131,17 @@
              :text "${vpn_status.active ? "VPN: ${vpn_status.name}" : "VPN av"}" :limit-width 22))
     (box :class "menu-sep")
     (for network in wifi_list
-      (button :class "menu-item ${network.active ? "active" : ""}"
-              :onclick "~/.config/eww/scripts/wifi-open-connect.sh '${network.ssid}'"
+      ;; Signal som staplar, procent i tooltip. Det anslutna natet ligger
+      ;; overst med bock och "Ansluten" - klick pa det gor ingenting.
+      (button :class "menu-item wifi-row ${network.active ? "active" : ""}"
+              :tooltip "${network.ssid} - signal ${network.signal}%"
+              :onclick "${network.active ? "true" : "~/.config/eww/scripts/wifi-open-connect.sh '${network.ssid_q}'"}"
         (box :orientation "horizontal" :space-evenly false
-          (label :class "menu-item-label" :halign "start" :hexpand true :text "${network.ssid}" :limit-width 20)
-          (label :class "menu-item-icon" :text "${network.secured ? "󰌾" : ""}")
-          (label :class "menu-item-time" :text "${network.signal}%"))))
+          (label :class "wifi-signal" :text "${network.icon}")
+          (box :orientation "vertical" :space-evenly false :hexpand true :valign "center"
+            (label :class "menu-item-label" :halign "start" :text "${network.ssid}" :limit-width 24)
+            (label :class "wifi-sub" :halign "start" :visible {network.active} :text "Ansluten"))
+          (label :class "menu-item-icon" :text "${network.active ? "󰄬" : (network.secured ? "󰌾" : "")}"))))
     (box :class "menu-sep")
     (button :class "menu-item"
             :onclick "eww close wifi-menu; gnome-control-center wifi &"
@@ -199,7 +214,7 @@
               :onclick "nmcli radio wifi ${selected_wifi_enabled ? "off" : "on"}; eww update selected_wifi_enabled=${selected_wifi_enabled ? "false" : "true"}"
         (box :orientation "vertical" :space-evenly false :halign "center"
           (label :class "tile-icon" :text "")
-          (label :class "tile-label" :text "Wifi")))
+          (label :class "tile-label" :text "Wi-Fi")))
       (button :class "tile ${dnd_active ? "active" : ""}"
               :onclick "swaync-client -d > /dev/null; eww update dnd_active=${dnd_active ? "false" : "true"}"
         (box :orientation "vertical" :space-evenly false :halign "center"

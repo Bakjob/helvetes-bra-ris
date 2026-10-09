@@ -46,3 +46,23 @@ Energiinställningar (`gnome-control-center power`).
 onclick-strängen. Förut förstörde ett `'` i lösenordet kommandot. Lösenordet
 syns fortfarande kort i processlistan medan nmcli ansluter, eftersom
 `nmcli device wifi connect` saknar passwd-file.
+
+## Volymmenyn: val av ljudenhet (2026-10-09)
+
+`scripts/audio-sinks.sh` (defpoll `audio_sinks`) listar alla utgångar med
+`pactl -f json list sinks`. Standardenheten ligger överst med bock. Klick kör
+`pactl set-default-sink`, och PipeWire flyttar då med pågående ljud.
+
+## Wifi-listan (2026-10-09)
+
+Signalen visas som staplar (Nerd Font 󰤟/󰤢/󰤥/󰤨) och procenten finns i tooltipen.
+Det anslutna nätet ligger överst med bock och texten "Ansluten", och ett klick på
+det gör ingenting (förut startade det om anslutningen). `wifi-list.sh` ger
+också `ssid_q`, ett skal-escapat SSID för onclick, så ett `'` i nätverksnamnet
+inte förstör kommandot.
+
+## Svenska
+
+All text i menyerna är på svenska. Batteriprofilerna heter Strömsparläge,
+Balanserat och Prestanda, och `battery.sh` översätter upowers tillstånd
+(discharging → "laddar ur" osv).
