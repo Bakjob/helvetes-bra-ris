@@ -53,3 +53,28 @@
       SvenskSkog`) — bara själva temat, inte `CustomApps`/`Extensions`/
       `config-xpui.ini` (maskinspecifikt/nedladdad tredjepartskod, inte
       värt att versionera).
+
+## Genomgång 2026-10-09 (Opus) — inte åtgärdat än
+
+Hittat vid en genomgång av hela repot. Inget är fixat. Jakob väljer vad som ska göras.
+
+- [ ] `wallpaper-cycle.sh` startar om swaync varje timme. Då stängs Stör ej av och
+      notishistoriken försvinner. waybar/swaync/hyprpaper hamnar dessutom i
+      tjänstens cgroup. Förslag: ladda om waybar med `SIGUSR2` och swaync med
+      `swaync-client -rs`, och starta hyprpaper via `hyprctl dispatch exec`.
+- [ ] Varje timme körs `hyprctl reload`, som stänger av regn-shadern. Markörfilen
+      står kvar, så nästa Super+Shift+W gör ingenting synligt.
+- [ ] Gamla gröna (före mossgrönt) finns kvar i `eww.scss`, `hyprlock.conf`,
+      `wlogout/style.css` och `wallust/anchor/swaync-colors.css`.
+- [ ] Rubriken i eww-volymmenyn visar första ljudenhetens namn, inte standardenheten.
+- [ ] Wifi-lösenordet skickas via en skal-sträng. Ett `'` i lösenordet förstör
+      kommandot, och lösenordet syns i processlistan.
+- [ ] Rofi-regeln (`class Rofi`, opacitet) gäller troligen inte. Rofi 2.0 körs
+      som layer på Wayland.
+- [ ] eww, hyprlock och wlogout följer inte det dynamiska temat (hårdkodade färger).
+- [ ] Inaktuella kommentarer och dokument: "var 20:e minut" (timern kör varje
+      heltimme), satty-kommentaren i keybinds, hyprlang2lua-TODO-rubriker,
+      swaybg i `00-oversikt/system.md`, trasig länk `suspend-s2idle-uppstartsfel`,
+      README saknar spicetify/wallust/systemd.
+- [ ] Stör ej-brickan i eww synkas aldrig mot swayncs faktiska läge.
+- [ ] `gpu.sh` kör `intel_gpu_top` i 4 s av varje 8 s-intervall.
